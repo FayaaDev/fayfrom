@@ -5,7 +5,8 @@ const HomePage = () => {
   const { currentLang } = useOutletContext();
   const [view, setView] = useState("main"); // main, review, create
   const [newFormName, setNewFormName] = useState("");
-  const [generatedCode, setGeneratedCode] = useState("");
+  const [generatedFormCode, setGeneratedFormCode] = useState("");
+  const [generatedPageCode, setGeneratedPageCode] = useState("");
 
   const translations = {
     welcome: { en: "Welcome to the Form Hub", ar: "مرحباً بك في مركز النماذج" },
@@ -19,9 +20,11 @@ const HomePage = () => {
     enterName: { en: "Enter Form Name (e.g., Contact)", ar: "أدخل اسم النموذج (مثلاً: تواصل)" },
     generate: { en: "Generate Code", ar: "توليد الكود" },
     copyCode: { en: "Copy Code", ar: "نسخ الكود" },
+    formFile: { en: "Form Definition File", ar: "ملف تعريف النموذج" },
+    pageFile: { en: "Page Component File", ar: "ملف مكون الصفحة" },
     codeInstructions: {
-      en: "Copy this code into a new file (e.g., src/forms/YourFormName.js) and create a new page component.",
-      ar: "انسخ هذا الكود إلى ملف جديد (مثلاً: src/forms/YourFormName.js) وأنشئ مكون صفحة جديد."
+      en: "Create these two files in your project:",
+      ar: "قم بإنشاء هذين الملفين في مشروعك:"
     }
   };
 
@@ -29,14 +32,17 @@ const HomePage = () => {
 
   const generateCode = () => {
     const name = newFormName.replace(/\s+/g, '');
-    const code = `import { translate } from '../utils/translate.js';
+    const formName = name.charAt(0).toUpperCase() + name.slice(1);
+
+    // 1. Form Definition Code
+    const formCode = `import { translate } from '../utils/translate.js';
 import { GOOGLE_SCRIPT_URL } from './formUtils.js';
 
-export function create${name}FormComposer(localization = 'en') {
+export function create${formName}FormComposer(localization = 'en') {
   if (!window.Composer) return null;
 
   const composer = new window.Composer({
-    id: "${name.toLowerCase()}-form",
+    id: "${formName.toLowerCase()}-form",
     formStyle: "conversational",
     fontSize: "lg",
     rounded: "pill",
@@ -59,17 +65,75 @@ export function create${name}FormComposer(localization = 'en') {
     buttonText: localization === "ar" ? "ابدأ" : "Start",
   });
 
-  // Add your questions here
-  composer.slide({ pageProgress: "1/1" });
-  composer.textInput("example", {
-    question: localization === "ar" ? "سؤال مثال؟" : "Example Question?",
+  // 1. Text Field
+  composer.slide({ pageProgress: "1/3" });
+  composer.textInput("question1", {
+    question: localization === "ar" ? "سؤال نصي؟" : "Text Question?",
+    required: true,
+  });
+
+  // 2. Dropdown Menu (SelectBox)
+  composer.slide({ pageProgress: "2/3" });
+  composer.selectBox("question2", {
+    question: localization === "ar" ? "سؤال القائمة المنسدلة؟" : "Dropdown Question?",
+    options: localization === "ar" 
+      ? ["خيار 1", "خيار 2", "خيار 3"] 
+      : ["Option 1", "Option 2", "Option 3"],
+    required: true,
+  });
+
+  // 3. Select Box (ChoiceInput)
+  composer.slide({ pageProgress: "3/3" });
+  composer.choiceInput("question3", {
+    question: localization === "ar" ? "سؤال الاختيار؟" : "Selection Question?",
+    choices: localization === "ar" 
+      ? ["خيار أ", "خيار ب"] 
+      : ["Choice A", "Choice B"],
     required: true,
   });
 
   return composer;
 }
 `;
-    setGeneratedCode(code);
+
+    // 2. Page Component Code
+    const pageCode = `import { useOutletContext } from "react-router-dom";
+import { useEffect, useState } from "react";
+import FormRenderer from "../components/FormRenderer";
+import { create${formName}FormComposer } from "../forms/${formName}Form";
+import { getFormOptions } from "../forms/formUtils";
+
+const ${formName}FormPage = () => {
+  const { currentLang } = useOutletContext();
+  const [composer, setComposer] = useState(null);
+  const [options, setOptions] = useState(null);
+
+  useEffect(() => {
+    const newComposer = create${formName}FormComposer(currentLang);
+    const newOptions = getFormOptions(currentLang);
+
+    setComposer(newComposer);
+    setOptions(newOptions);
+  }, [currentLang]);
+
+  if (!composer || !options) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <FormRenderer
+      composer={composer}
+      options={options}
+      id="${formName.toLowerCase()}-form-container"
+    />
+  );
+};
+
+export default ${formName}FormPage;
+`;
+
+    setGeneratedFormCode(formCode);
+    setGeneratedPageCode(pageCode);
   };
 
   return (
@@ -97,6 +161,9 @@ export function create${name}FormComposer(localization = 'en') {
             <Link to="/feedback-form" className="form-link-card">
               {txt('feedbackForm')}
             </Link>
+            <Link to="/tester-form" className="form-link-card">
+              Tester Form
+            </Link>
           </div>
           <button className="back-btn" onClick={() => setView("main")}>{txt('backBtn')}</button>
         </div>
@@ -104,7 +171,7 @@ export function create${name}FormComposer(localization = 'en') {
 
       {view === "create" && (
         <div className="create-section">
-          {!generatedCode ? (
+          {!generatedFormCode ? (
             <>
               <input
                 type="text"
@@ -120,14 +187,25 @@ export function create${name}FormComposer(localization = 'en') {
           ) : (
             <div className="code-display">
               <p>{txt('codeInstructions')}</p>
-              <textarea readOnly value={generatedCode} rows={20} className="code-textarea" />
+
+              <div className="code-block">
+                <h3>{txt('formFile')}: <code>src/forms/{newFormName.replace(/\s+/g, '')}Form.js</code></h3>
+                <textarea readOnly value={generatedFormCode} rows={15} className="code-textarea" />
+                <button className="copy-btn" onClick={() => navigator.clipboard.writeText(generatedFormCode)}>{txt('copyCode')}</button>
+              </div>
+
+              <div className="code-block">
+                <h3>{txt('pageFile')}: <code>src/pages/{newFormName.replace(/\s+/g, '')}FormPage.jsx</code></h3>
+                <textarea readOnly value={generatedPageCode} rows={15} className="code-textarea" />
+                <button className="copy-btn" onClick={() => navigator.clipboard.writeText(generatedPageCode)}>{txt('copyCode')}</button>
+              </div>
+
               <div className="code-actions">
-                <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(generatedCode) }}>{txt('copyCode')}</button>
-                <button className="reset-btn" onClick={() => { setGeneratedCode(""); setNewFormName(""); }}>{txt('backBtn')}</button>
+                <button className="reset-btn" onClick={() => { setGeneratedFormCode(""); setGeneratedPageCode(""); setNewFormName(""); }}>{txt('backBtn')}</button>
               </div>
             </div>
           )}
-          {!generatedCode && <button className="back-btn" onClick={() => setView("main")}>{txt('backBtn')}</button>}
+          {!generatedFormCode && <button className="back-btn" onClick={() => setView("main")}>{txt('backBtn')}</button>}
         </div>
       )}
     </div>

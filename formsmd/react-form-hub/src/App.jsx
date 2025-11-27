@@ -3,6 +3,7 @@ import HubLayout from "./layouts/HubLayout";
 import HomePage from "./pages/HomePage";
 import DemoFormPage from "./pages/DemoFormPage";
 import FeedbackFormPage from "./pages/FeedbackFormPage";
+import TesterFormPage from "./pages/TesterFormPage";
 import "./App.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="demo-form" element={<DemoFormPage />} />
           <Route path="feedback-form" element={<FeedbackFormPage />} />
+          <Route path="tester-form" element={<TesterFormPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
