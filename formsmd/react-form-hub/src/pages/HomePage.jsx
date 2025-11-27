@@ -162,7 +162,7 @@ export default ${formName}FormPage;
               {txt('feedbackForm')}
             </Link>
             <Link to="/tester-form" className="form-link-card">
-              Tester Form
+              نموذج تسليم الأصول
             </Link>
           </div>
           <button className="back-btn" onClick={() => setView("main")}>{txt('backBtn')}</button>

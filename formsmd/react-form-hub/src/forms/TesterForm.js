@@ -24,10 +24,11 @@ export function createTesterFormComposer(localization = 'en') {
   });
 
   composer.h1("تسليم أصول الوزارة");
-  composer.startSlide({
-    buttonText: localization === "ar" ? "ابدأ" : "Start",
-  });
-
+  composer.p(
+    localization === "ar"
+      ? "يرجى تعبئة النموذج التالي لتسليم أصول الوزارة. ستحتاج إلى إدخال رقم الهوية والاسم ونوع الجهاز."
+      : "Please complete the following form to submit ministry assets. You will need to enter your ID number, name, and device type."
+  );
 
   // 1. Text Input - ID Selection with validation
   composer.slide({ pageProgress: "1/3" });
