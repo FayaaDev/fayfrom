@@ -93,15 +93,7 @@
 }
 
 /* RTL support */
-[dir="rtl"] .logo {
-  right: auto;
-  left: 20px;
-}
 
-[dir="rtl"] .lang-toggle {
-  left: auto;
-  right: 20px;
-}
 
 [dir="rtl"] .nav-menu {
   left: auto;

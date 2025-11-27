@@ -15,7 +15,7 @@ export function getFormOptions(localization = 'en') {
         slideControls: "show",
         pageProgress: "show",
         paddingInlineBottom: 80,
-        paddingInlineTop: 100,
+        paddingInlineTop: 300,
         accent: "#09595C",
         accentForeground: "#ffffff",
         backgroundColor: "#ffffff",
