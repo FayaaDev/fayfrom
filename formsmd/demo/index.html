@@ -124,15 +124,29 @@
 						ar: "هذا نموذج تجريبي بسيط لعرض إمكانيات Forms.md.",
 					}),
 				);
-				composer.startSlide({
-					buttonText: translate(localization, {
-						en: "Get Started",
-						ar: "ابدأ",
-					}),
-				});
+			composer.startSlide({
+				buttonText: translate(localization, {
+					en: "Get Started",
+					ar: "ابدأ",
+				}),
+			});
 //////////////////////////////////////////////////////////////////
+			// Slide 0: Name Selection
+			composer.slide({ pageProgress: "0/6" });
+			composer.selectBox("userName", {
+				question: translate(localization, {
+					en: "Please select your name:",
+					ar: "الرجاء اختيار اسمك:",
+				}),
+				options:
+					localization === "ar"
+						? ["أحمد محمد", "فاطمة علي", "محمد حسن", "سارة أحمد", "علي محمود"]
+						: ["Ahmed Mohammed", "Fatima Ali", "Mohammed Hassan", "Sarah Ahmed", "Ali Mahmoud"],
+				required: true,
+			});
+
 			// Slide 1: Name
-			composer.slide({ pageProgress: "1/5" });
+			composer.slide({ pageProgress: "1/6" });
 			composer.textInput("fullName", {
 					question: translate(localization, {
 						en: "What's your name?",
@@ -146,7 +160,7 @@
 				});
 
 			// Slide 2: Email
-			composer.slide({ pageProgress: "2/5" });
+			composer.slide({ pageProgress: "2/6" });
 			composer.emailInput("email", {
 					question: translate(localization, {
 						en: "What's your email address?",
@@ -161,7 +175,7 @@
 
 
 			// Slide 4: Rating
-			composer.slide({ pageProgress: "3/5" });
+			composer.slide({ pageProgress: "3/6" });
 			composer.choiceInput("rating", {
 					question: translate(localization, {
 						en: "How would you rate your experience?",
@@ -175,7 +189,7 @@
 				});
 
 			// Slide 5: Feedback
-			composer.slide({ pageProgress: "4/5" });
+			composer.slide({ pageProgress: "4/6" });
 			composer.textInput("feedback", {
 					question: translate(localization, {
 						en: "Any additional feedback?",
@@ -190,7 +204,7 @@
 				});
 
 							// Slide 6: URL
-			composer.slide({ pageProgress: "5/5" });
+			composer.slide({ pageProgress: "5/6" });
 			composer.urlInput("CompanyURL", {
 					question: translate(localization, {
 						en: "What is your company's URL?",

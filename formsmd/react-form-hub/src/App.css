@@ -1,0 +1,277 @@
+/* Hub Layout Styles */
+.hub-layout {
+  min-height: 100vh;
+  position: relative;
+}
+
+.logo {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.logo img {
+  height: 60px;
+  width: auto;
+}
+
+.lang-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  padding: 10px 20px;
+  background-color: #09595c;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Majalla", sans-serif;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.lang-toggle:hover {
+  background-color: #063e40;
+}
+
+/* Navigation Menu */
+.nav-menu {
+  position: fixed;
+  top: 90px;
+  left: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 150px;
+}
+
+.nav-link {
+  padding: 6px 12px;
+  background-color: rgba(245, 245, 245, 0.95);
+  color: #063e40;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: "Majalla", sans-serif;
+  font-size: 13px;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.nav-link:hover {
+  background-color: #e0e0e0;
+}
+
+/* Form Container */
+.form-container {
+  width: 100%;
+  min-height: 100vh;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Home Page Styles */
+.home-page {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.home-page h1 {
+  color: #09595c;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.home-page p {
+  color: #063e40;
+  font-size: 1.2em;
+}
+
+/* RTL support */
+[dir="rtl"] .logo {
+  right: auto;
+  left: 20px;
+}
+
+[dir="rtl"] .lang-toggle {
+  left: auto;
+  right: 20px;
+}
+
+[dir="rtl"] .nav-menu {
+  left: auto;
+  right: 20px;
+}
+
+/* Make sure form content doesn't overlap with navigation */
+@media (max-width: 768px) {
+  .form-container {
+    padding-top: 20px;
+  }
+}
+
+/* Home Page Actions */
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.main-action-btn {
+  background-color: #09595c;
+  color: white;
+  border: none;
+  padding: 20px 40px;
+  font-size: 1.2em;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  min-width: 200px;
+  font-family: "Majalla", sans-serif;
+}
+
+.main-action-btn:hover {
+  background-color: #063e40;
+  transform: translateY(-2px);
+}
+
+/* Review Section */
+.review-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.form-link-card {
+  display: block;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #063e40;
+  font-size: 1.2em;
+  transition: background-color 0.2s;
+  border: 1px solid #e0e0e0;
+}
+
+.form-link-card:hover {
+  background-color: #e0e0e0;
+}
+
+/* Create Section */
+.create-section {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.name-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1em;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: "Majalla", sans-serif;
+}
+
+.name-input:focus {
+  border-color: #09595c;
+  outline: none;
+}
+
+.generate-btn {
+  background-color: #09595c;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.generate-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.code-display {
+  width: 100%;
+  text-align: left;
+}
+
+.code-textarea {
+  width: 100%;
+  padding: 15px;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  border-radius: 8px;
+  font-family: monospace;
+  margin: 10px 0;
+  resize: vertical;
+}
+
+.code-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.copy-btn,
+.reset-btn,
+.back-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Majalla", sans-serif;
+  font-size: 1em;
+}
+
+.copy-btn {
+  background-color: #09595c;
+  color: white;
+  border: none;
+}
+
+.reset-btn,
+.back-btn {
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+}
+
+.back-btn {
+  margin-top: 20px;
+}
+
+.copy-btn:hover {
+  background-color: #063e40;
+}
+
+.reset-btn:hover,
+.back-btn:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* RTL support for form elements */
+.fmd-root[dir="rtl"] .fmd-label,
+.fmd-root[dir="rtl"] .fmd-question {
+  text-align: right;
+}
