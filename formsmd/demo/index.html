@@ -28,10 +28,10 @@
 			#form-container {
 				height: 100%;
 				min-height: 100vh;
-				display: flex;
-				justify-content: center;
-				align-items: center;
 				font-family: "Majalla", sans-serif;
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 20px;
 			}
 			.logo {
 				position: fixed;
@@ -90,16 +90,22 @@
 				// Clear the form container
 				document.getElementById("form-container").innerHTML = "";
 
-				// Create form with ID and Google Sheets endpoint
-				const composer = new Composer({
-					id: "demo-form",
-					formStyle: "classic",
-					postUrl: GOOGLE_SCRIPT_URL,
-					localization: localization,
-					dir: localization === "ar" ? "rtl" : "ltr",
-				});
-
-				// Debug: log the generated template
+			// Create form with ID and Google Sheets endpoint
+			const composer = new Composer({
+				id: "demo-form",
+				formStyle: "conversational",
+				fontSize: "lg",
+				rounded: "pill",
+				buttonAlignment: "end",
+				colorScheme: "light",
+				accent: "#09595C",
+				accentForeground: "#ffffff",
+				backgroundColor: "#ffffff",
+				color: "#063E40",
+				postUrl: GOOGLE_SCRIPT_URL,
+				localization: localization,
+				dir: localization === "ar" ? "rtl" : "ltr",
+			});				// Debug: log the generated template
 				console.log("Generated template:", composer.template);
 
 				// Welcome slide
@@ -179,19 +185,18 @@
 					required: false,
 				});
 
-				// Initialize the form with light theme
-				const formsmd = new Formsmd(
-					composer.template,
-					document.getElementById("form-container"),
-					{
-						colorScheme: "light",
-						formsmdBranding: "hide",
-						themeLight: {
-							accent: "#09595C", // Teal from color scheme 2
-							accentForeground: "#ffffff", // White text on accent
-							backgroundColor: "#ffffff", // White background
-							color: "#063E40", // Dark teal text from color scheme 2
-						},
+			// Initialize the form with light theme
+			const formsmd = new Formsmd(
+				composer.template,
+				document.getElementById("form-container"),
+				{
+					colorScheme: "light",
+					formsmdBranding: "hide",
+					fontSize: "lg",
+					accent: "#09595C",
+					accentForeground: "#ffffff",
+					backgroundColor: "#ffffff",
+					color: "#063E40",
 						onSubmit: (data) => {
 							console.log("Form submitted - data object:", data);
 							console.log(
