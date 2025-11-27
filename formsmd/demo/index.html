@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Forms.md Demo</title>
+		<link
+			id="formsmd-stylesheet"
+			rel="stylesheet"
+			type="text/css"
+			href="../dist/css/formsmd.min.css"
+		/>
+		<style>
+			@font-face {
+				font-family: "Majalla";
+				src: url("font/majalla.ttf") format("truetype");
+				font-weight: normal;
+				font-style: normal;
+			}
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				background-color: #ffffff;
+				font-family: "Majalla", sans-serif;
+			}
+			#form-container {
+				height: 100%;
+				min-height: 100vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-family: "Majalla", sans-serif;
+			}
+			.logo {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 1000;
+			}
+			.logo img {
+				height: 60px;
+				width: auto;
+			}
+			.lang-toggle {
+				position: fixed;
+				top: 20px;
+				left: 20px;
+				z-index: 1000;
+				padding: 10px 20px;
+				background-color: #09595c;
+				color: #ffffff;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				font-family: "Majalla", sans-serif;
+				font-size: 16px;
+				transition: background-color 0.3s;
+			}
+			.lang-toggle:hover {
+				background-color: #063e40;
+			}
+			/* RTL support for form elements */
+			.fmd-root[dir="rtl"] .fmd-label,
+			.fmd-root[dir="rtl"] .fmd-question {
+				text-align: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="logo">
+			<img src="PHAlogo.png" alt="Logo" />
+		</div>
+		<button class="lang-toggle" onclick="toggleLanguage()">English</button>
+		<div id="form-container"></div>
+
+		<script src="../dist/js/formsmd.bundle.min.js"></script>
+		<script src="../dist/js/composer.bundle.min.js"></script>
+		<script>
+			// ⚠️ REPLACE THIS with your Google Apps Script Web App URL
+			// Follow GOOGLE_SHEETS_SETUP.md for instructions
+			const GOOGLE_SCRIPT_URL =
+				"https://script.google.com/macros/s/AKfycbwNyLO_fWiudzmMVmU6OEaPI2PAjGWlV0kU8nd_QsmNjrFL2fidoRiGIfJ8QqA325osRQ/exec";
+
+			// Get current language from localStorage or default to Arabic
+			let currentLang = localStorage.getItem("localization") || "ar";
+
+			function createForm(localization) {
+				// Clear the form container
+				document.getElementById("form-container").innerHTML = "";
+
+				// Create form with ID and Google Sheets endpoint
+				const composer = new Composer({
+					id: "demo-form",
+					formStyle: "classic",
+					postUrl: GOOGLE_SCRIPT_URL,
+					localization: localization,
+					dir: localization === "ar" ? "rtl" : "ltr",
+				});
+
+				// Debug: log the generated template
+				console.log("Generated template:", composer.template);
+
+				// Welcome slide
+				composer.h1(
+					translate(localization, {
+						en: "Welcome to Forms.md Demo",
+						ar: "مرحباً بك في نموذج العرض التوضيحي",
+					}),
+				);
+				composer.p(
+					translate(localization, {
+						en: "This is a simple demo form to showcase Forms.md capabilities.",
+						ar: "هذا نموذج تجريبي بسيط لعرض إمكانيات Forms.md.",
+					}),
+				);
+				composer.startSlide({
+					buttonText: translate(localization, {
+						en: "Get Started",
+						ar: "ابدأ",
+					}),
+				});
+
+				// Slide 1: Name
+				composer.slide({ pageProgress: "25%" });
+				composer.textInput("fullName", {
+					question: translate(localization, {
+						en: "What's your name?",
+						ar: "ما اسمك؟",
+					}),
+					placeholder: translate(localization, {
+						en: "Enter your full name",
+						ar: "أدخل اسمك الكامل",
+					}),
+					required: true,
+				});
+
+				// Slide 2: Email
+				composer.slide({ pageProgress: "50%" });
+				composer.emailInput("email", {
+					question: translate(localization, {
+						en: "What's your email address?",
+						ar: "ما هو بريدك الإلكتروني؟",
+					}),
+					placeholder: translate(localization, {
+						en: "you@example.com",
+						ar: "example@email.com",
+					}),
+					required: true,
+				});
+
+				// Slide 3: Rating
+				composer.slide({ pageProgress: "75%" });
+				composer.choiceInput("rating", {
+					question: translate(localization, {
+						en: "How would you rate your experience?",
+						ar: "كيف تقيم تجربتك؟",
+					}),
+					choices:
+						localization === "ar"
+							? ["ممتاز", "جيد", "متوسط", "ضعيف"]
+							: ["Excellent", "Good", "Average", "Poor"],
+					required: true,
+				});
+
+				// Slide 4: Feedback
+				composer.slide({ pageProgress: "100%" });
+				composer.textInput("feedback", {
+					question: translate(localization, {
+						en: "Any additional feedback?",
+						ar: "هل لديك أي ملاحظات إضافية؟",
+					}),
+					placeholder: translate(localization, {
+						en: "Share your thoughts...",
+						ar: "شاركنا أفكارك...",
+					}),
+					multiline: true,
+					required: false,
+				});
+
+				// Initialize the form with light theme
+				const formsmd = new Formsmd(
+					composer.template,
+					document.getElementById("form-container"),
+					{
+						colorScheme: "light",
+						formsmdBranding: "hide",
+						themeLight: {
+							accent: "#09595C", // Teal from color scheme 2
+							accentForeground: "#ffffff", // White text on accent
+							backgroundColor: "#ffffff", // White background
+							color: "#063E40", // Dark teal text from color scheme 2
+						},
+						onSubmit: (data) => {
+							console.log("Form submitted - data object:", data);
+							console.log(
+								"Form submitted - JSON:",
+								JSON.stringify(data, null, 2),
+							);
+							alert(
+								localization === "ar"
+									? "تم إرسال النموذج بنجاح! تحقق من جدول Google الخاص بك."
+									: "Form submitted successfully! Check your Google Sheet.",
+							);
+						},
+						onSubmitError: (error) => {
+							console.error("Submission error:", error);
+							alert(
+								localization === "ar"
+									? "خطأ في إرسال النموذج. تحقق من وحدة التحكم للحصول على التفاصيل."
+									: "Error submitting form. Check console for details.",
+							);
+						},
+					},
+				);
+				formsmd.init();
+
+				// Also log when form data is collected
+				console.log("Form initialized. Template:", composer.template);
+			}
+
+			function updateStylesheet(localization) {
+				const stylesheet = document.getElementById("formsmd-stylesheet");
+				if (localization === "ar") {
+					stylesheet.href = "../dist/css/formsmd.rtl.min.css";
+				} else {
+					stylesheet.href = "../dist/css/formsmd.min.css";
+				}
+			}
+
+			function toggleLanguage() {
+				currentLang = currentLang === "ar" ? "en" : "ar";
+				localStorage.setItem("localization", currentLang);
+
+				// Update stylesheet for RTL/LTR
+				updateStylesheet(currentLang);
+
+				// Update toggle button text
+				document.querySelector(".lang-toggle").textContent =
+					currentLang === "ar" ? "English" : "العربية";
+
+				// Recreate the form
+				createForm(currentLang);
+			}
+
+			// Initialize on page load
+			updateStylesheet(currentLang);
+			document.querySelector(".lang-toggle").textContent =
+				currentLang === "ar" ? "English" : "العربية";
+			createForm(currentLang);
+		</script>
+	</body>
+</html>

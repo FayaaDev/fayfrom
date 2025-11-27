@@ -1,0 +1,79 @@
+<!doctype html>
+<html
+	dir="{{ settings.dir }}"
+	lang="{{ settings.localization }}"
+	spellcheck="false"
+	class="fmd-root"
+	data-fmd-color-scheme="{{ settings['color-scheme'] }}"
+	data-fmd-color-scheme-toggle="{{ settings['color-scheme-toggle'] }}"
+	data-fmd-color-scheme-scope="{{ settings['color-scheme-scope'] }}"
+	data-fmd-id="{{ settings.id }}"
+>
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Title and favicon -->
+		<title>{{ settings.title }}</title>
+		<link rel="icon" href="{{ settings.favicon }}" />
+
+		<!-- SEO -->
+		<meta name="description" content="{{ settings['meta-description'] }}" />
+		<meta name="author" content="{{ settings['meta-author'] }}" />
+		<meta name="keywords" content="{{ settings['meta-keywords'] }}" />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="{{ settings['meta-type'] }}" />
+		<meta property="og:url" content="{{ settings['meta-url'] }}" />
+		<meta property="og:title" content="{{ settings.title }}" />
+		<meta
+			property="og:description"
+			content="{{ settings['meta-description'] }}"
+		/>
+		<meta property="og:image" content="{{ settings['meta-image'] }}" />
+
+		<!-- Forms.md JS -->
+		<script src="./formsmd/js/formsmd.bundle.min.js"></script>
+
+		<!-- Toggle color scheme -->
+		<script type="text/javascript">
+			if (
+				document.documentElement.getAttribute(
+					"data-fmd-color-scheme-toggle",
+				) === "show"
+			)
+				formsmd.setPreferredColorScheme();
+		</script>
+
+		<!-- Forms.md CSS -->
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="./formsmd/css/formsmd{% if settings.dir == 'rtl' %}.rtl{% endif %}.min.css"
+		/>
+	</head>
+	<body class="fmd-body">
+		<noscript>Please turn on JavaScript to see this page.</noscript>
+		<div class="fmd-main">
+			<div class="fmd-main-container">
+				<div class="fmd-loader-container">
+					<div
+						class="fmd-loader-spinner"
+						role="status"
+						aria-label="Loading"
+					></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Content -->
+		<script type="text/javascript">
+			String.prototype.formsmd = function () {
+				const instance = new Formsmd(this, document, { isFullPage: true });
+				instance.init();
+			};
+		</script>
+		<script src="./content/{{ route }}.md.js"></script>
+	</body>
+</html>
