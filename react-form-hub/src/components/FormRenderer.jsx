@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const FormRenderer = ({ composer, options = {}, id }) => {
+const FormRenderer = ({ composer, options = {}, id, onMount }) => {
 	const containerRef = useRef(null);
 	const formInstance = useRef(null);
 
@@ -29,6 +29,11 @@ const FormRenderer = ({ composer, options = {}, id }) => {
 
 				// Save instance to prevent re-initialization
 				formInstance.current = formsmd;
+
+				// Expose instance to parent
+				if (onMount) {
+					onMount(formsmd);
+				}
 			}
 		};
 

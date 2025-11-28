@@ -564,5 +564,35 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         ],
     });
 
+    // 32. Generate Story
+    composer.slide({ pageProgress: "37/37" });
+    composer.h2(
+        translate(localization, {
+            en: "Patient Story",
+            ar: "قصة المريض",
+        }),
+    );
+
+    // We inject raw HTML for the button and result container
+    // The event listener will be attached in the page component
+    const buttonLabel = translate(localization, { en: "Generate Story", ar: "توليد القصة" });
+    const loadingLabel = translate(localization, { en: "Generating...", ar: "جاري التوليد..." });
+
+    composer.free(`
+<div class="fmd-next-controls fmd-d-flex fmd-justify-content-center fmd-mb-4">
+<button type="button" id="btn-generate-story" class="fmd-btn fmd-btn-accent fmd-d-flex fmd-align-items-center fmd-justify-content-center" data-loading-text="${loadingLabel}">
+${buttonLabel}
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="fmd-icon fmd-ms-2 fmd-hide-rtl" aria-hidden="true" focusable="false"><path d="M273 239c9.4 9.4 9.4 24.6 0 33.9L113 433c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l143-143L79 113c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L273 239z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="fmd-icon fmd-ms-2 fmd-hide-ltr" aria-hidden="true" focusable="false"><path d="M47 239c-9.4 9.4-9.4 24.6 0 33.9L207 433c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9L97.9 256 241 113c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L47 239z"/></svg>
+</button>
+</div>
+<div id="story-result" class="fmd-card fmd-p-4 fmd-mt-4" style="display: none; white-space: pre-wrap; text-align: start;"></div>
+<div class="fmd-text-center fmd-mt-2">
+<button type="button" id="btn-copy-story" class="fmd-btn fmd-btn-sm fmd-btn-accent" style="display: none;">
+Copy
+</button>
+</div>
+`);
+
     return composer;
 }
