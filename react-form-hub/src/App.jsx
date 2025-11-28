@@ -6,6 +6,7 @@ import FeedbackFormPage from "./pages/FeedbackFormPage";
 import TesterFormPage from "./pages/TesterFormPage";
 import SurveyFormPage from "./pages/SurveyFormPage";
 import BurnoutSurveyPage from "./pages/BurnoutSurveyPage";
+import NeurologyHistoryFormPage from "./pages/NeurologyHistoryFormPage";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 					<Route path="tester-form" element={<TesterFormPage />} />
 					<Route path="survey-form" element={<SurveyFormPage />} />
 					<Route path="burnout-survey" element={<BurnoutSurveyPage />} />
+					<Route path="neurology-history" element={<NeurologyHistoryFormPage />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

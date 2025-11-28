@@ -1,0 +1,565 @@
+
+import { translate } from "../utils/translate.js";
+import { getSharedFormConfig, GOOGLE_SCRIPT_URL } from "./formUtils.js";
+
+export function createNeurologyHistoryFormComposer(localization = "en") {
+    if (!window.Composer) {
+        console.error("Composer not loaded yet");
+        return null;
+    }
+
+    const composer = new window.Composer({
+        id: "neurology-history-form",
+        ...getSharedFormConfig(localization),
+        postUrl: GOOGLE_SCRIPT_URL,
+    });
+
+    // Header
+    composer.h1(
+        translate(localization, {
+            en: "Neurology History-Taking Form",
+            ar: "نموذج التاريخ العصبي",
+        }),
+    );
+
+    composer.p(
+        translate(localization, {
+            en: "Epilepsy Template",
+            ar: "نموذج مرض الصرع",
+        }),
+    );
+
+    // 1. Onset
+    composer.slide({ pageProgress: "1/35" });
+    composer.textInput("first_happened", {
+        question: translate(localization, {
+            en: "When did it first happen?",
+            ar: "متى حدث ذلك لأول مرة؟",
+        }),
+    });
+
+    // 2. Frequency Total
+    composer.slide({ pageProgress: "2/35" });
+    composer.numberInput("times_total", {
+        question: translate(localization, {
+            en: "How many times thus far?",
+            ar: "كم مرة حدث ذلك حتى الآن؟",
+        }),
+    });
+
+    // 3. Frequency Monthly
+    composer.slide({ pageProgress: "3/35" });
+    composer.numberInput("times_per_month", {
+        question: translate(localization, {
+            en: "How many times is it happening per month?",
+            ar: "كم مرة يحدث ذلك في الشهر؟",
+        }),
+    });
+
+    // 4. Witnessed
+    composer.slide({ pageProgress: "4/35" });
+    composer.choiceInput("witnessed", {
+        question: translate(localization, {
+            en: "Witnessed by anyone?",
+            ar: "هل شاهده أحد؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 4b. Description
+    composer.slide({ pageProgress: "4/35" });
+    composer.textInput("event_description", {
+        multiline: true,
+        question: translate(localization, {
+            en: "What happened exactly?",
+            ar: "ماذا حدث بالضبط؟",
+        }),
+    });
+
+    // 5. Aura
+    composer.slide({ pageProgress: "5/35" });
+    composer.choiceInput("aura", {
+        question: translate(localization, {
+            en: "Did you get any aura (warning) beforehand?",
+            ar: "هل شعرت بأي هالة (تحذير) مسبقاً؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.textInput("aura_description", {
+        question: translate(localization, {
+            en: "What was the aura?",
+            ar: "ما هي الهالة؟",
+        }),
+        displayCondition: {
+            dependencies: ["aura"],
+            condition: "aura == '" + translate(localization, { en: "Yes", ar: "نعم" }) + "'",
+        },
+    });
+
+    // 6. Abnormal movements
+    composer.slide({ pageProgress: "6/35" });
+    composer.choiceInput("abnormal_movements", {
+        question: translate(localization, {
+            en: "Was there any abnormal movements in one side of your body beforehand?",
+            ar: "هل كانت هناك أي حركات غير طبيعية في جانب واحد من جسمك مسبقاً؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 7. Staring
+    composer.slide({ pageProgress: "7/35" });
+    composer.choiceInput("staring", {
+        question: translate(localization, {
+            en: "Were you staring for a while before it happened?",
+            ar: "هل كنت تحدق لفترة قبل حدوثه؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 8. Activity
+    composer.slide({ pageProgress: "8/35" });
+    composer.textInput("activity", {
+        question: translate(localization, {
+            en: "What were you doing when it happened?",
+            ar: "ماذا كنت تفعل عندما حدث ذلك؟",
+        }),
+    });
+
+    // 9. Duration
+    composer.slide({ pageProgress: "9/35" });
+    composer.textInput("duration", {
+        question: translate(localization, {
+            en: "For how long did you lose consciousness?",
+            ar: "كم من الوقت فقدت الوعي؟",
+        }),
+    });
+
+    // 10. Eyes
+    composer.slide({ pageProgress: "10/35" });
+    composer.choiceInput("eyes", {
+        question: translate(localization, {
+            en: "Eyes open or closed?",
+            ar: "هل كانت العيون مفتوحة أم مغلقة؟",
+        }),
+        choices: [
+            translate(localization, { en: "Open", ar: "مفتوحة" }),
+            translate(localization, { en: "Closed", ar: "مغلقة" }),
+        ],
+    });
+
+    // 11. Frothing
+    composer.slide({ pageProgress: "11/35" });
+    composer.choiceInput("frothing", {
+        question: translate(localization, {
+            en: "Any frothing from the mouth?",
+            ar: "هل كان هناك رغوة من الفم؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 12. Abnormal sounds
+    composer.slide({ pageProgress: "12/35" });
+    composer.choiceInput("abnormal_sounds", {
+        question: translate(localization, {
+            en: "Any abnormal sounds?",
+            ar: "هل كانت هناك أصوات غير طبيعية؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 13. Shaking
+    composer.slide({ pageProgress: "13/35" });
+    composer.choiceInput("shaking", {
+        question: translate(localization, {
+            en: "Any shaking?",
+            ar: "هل كان هناك اهتزاز؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.textInput("shaking_part", {
+        question: translate(localization, {
+            en: "What part of the body?",
+            ar: "أي جزء من الجسم؟",
+        }),
+        displayCondition: {
+            dependencies: ["shaking"],
+            condition: "shaking == '" + translate(localization, { en: "Yes", ar: "نعم" }) + "'",
+        },
+    });
+
+    // 14. Confusion
+    composer.slide({ pageProgress: "14/35" });
+    composer.choiceInput("confusion", {
+        question: translate(localization, {
+            en: "When you woke up, were you confused?",
+            ar: "عندما استيقظت، هل كنت مشوشاً؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 15. Incontinence
+    composer.slide({ pageProgress: "15/35" });
+    composer.choiceInput("incontinence", {
+        question: translate(localization, {
+            en: "Lost control over bladder or bowel?",
+            ar: "هل فقدت السيطرة على المثانة أو الأمعاء؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 16. Tongue bite
+    composer.slide({ pageProgress: "16/35" });
+    composer.choiceInput("tongue_bite", {
+        question: translate(localization, {
+            en: "Any tongue bite?",
+            ar: "هل كان هناك عض لللسان؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.textInput("tongue_bite_location", {
+        question: translate(localization, {
+            en: "Where exactly?",
+            ar: "أين بالضبط؟",
+        }),
+        displayCondition: {
+            dependencies: ["tongue_bite"],
+            condition: "tongue_bite == '" + translate(localization, { en: "Yes", ar: "نعم" }) + "'",
+        },
+    });
+
+    // 17. Trauma
+    composer.slide({ pageProgress: "17/35" });
+    composer.choiceInput("trauma", {
+        question: translate(localization, {
+            en: "Any trauma?",
+            ar: "هل حدثت أي إصابة؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.textInput("trauma_location", {
+        question: translate(localization, {
+            en: "Where?",
+            ar: "أين؟",
+        }),
+        displayCondition: {
+            dependencies: ["trauma"],
+            condition: "trauma == '" + translate(localization, { en: "Yes", ar: "نعم" }) + "'",
+        },
+    });
+
+    // 18. Triggers
+    composer.slide({ pageProgress: "18/35" });
+    composer.choiceInput("triggers", {
+        question: translate(localization, {
+            en: "Any triggers like sleep deprivation or flashing light exposure?",
+            ar: "أي محفزات مثل الحرمان من النوم أو التعرض للضوء الوامض؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 19. Driving
+    composer.slide({ pageProgress: "19/35" });
+    composer.choiceInput("driving", {
+        question: translate(localization, {
+            en: "Are you currently driving?",
+            ar: "هل تقود السيارة حالياً؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 20. Swimming/Jacuzzi
+    composer.slide({ pageProgress: "20/35" });
+    composer.choiceInput("swimming", {
+        question: translate(localization, {
+            en: "Swimming or using Jacuzzi?",
+            ar: "هل تسبح أو تستخدم الجاكوزي؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 21. Ladder
+    composer.slide({ pageProgress: "21/35" });
+    composer.choiceInput("ladder", {
+        question: translate(localization, {
+            en: "Using ladder for work or tasks at home?",
+            ar: "هل تستخدم السلم للعمل أو المهام في المنزل؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 22. Family History Epilepsy
+    composer.slide({ pageProgress: "22/35" });
+    composer.choiceInput("fh_epilepsy", {
+        question: translate(localization, {
+            en: "Any family history of epilepsy?",
+            ar: "هل يوجد تاريخ عائلي للصرع؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 23. Family History Cardiac
+    composer.slide({ pageProgress: "23/35" });
+    composer.choiceInput("fh_cardiac", {
+        question: translate(localization, {
+            en: "Any family history of cardiac disease?",
+            ar: "هل يوجد تاريخ عائلي لأمراض القلب؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 23b. Other Family History
+    composer.slide({ pageProgress: "23/35" });
+    composer.textInput("fh_other", {
+        question: translate(localization, {
+            en: "Family history of any other disease?",
+            ar: "تاريخ عائلي لأي مرض آخر؟",
+        }),
+    });
+
+    // 24. Full term
+    composer.slide({ pageProgress: "24/35" });
+    composer.choiceInput("full_term", {
+        question: translate(localization, {
+            en: "Were you born full term?",
+            ar: "هل ولدت في موعدك (حمل كامل)؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 25. Childbirth complications
+    composer.slide({ pageProgress: "25/35" });
+    composer.choiceInput("childbirth_complications", {
+        question: translate(localization, {
+            en: "Any complications during your childbirth?",
+            ar: "هل حدثت أي مضاعفات أثناء ولادتك؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 26. Head trauma
+    composer.slide({ pageProgress: "26/35" });
+    composer.choiceInput("head_trauma", {
+        question: translate(localization, {
+            en: "Any head trauma in the past?",
+            ar: "هل تعرضت لإصابة في الرأس في الماضي؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.textInput("head_trauma_details", {
+        question: translate(localization, {
+            en: "When? And how severe was it?",
+            ar: "متى؟ وما مدى شدتها؟",
+        }),
+        displayCondition: {
+            dependencies: ["head_trauma"],
+            condition: "head_trauma == '" + translate(localization, { en: "Yes", ar: "نعم" }) + "'",
+        },
+    });
+
+    // 27. Stroke/Brain insult
+    composer.slide({ pageProgress: "27/35" });
+    composer.choiceInput("stroke_history", {
+        question: translate(localization, {
+            en: "Any personal history of stroke or brain insult?",
+            ar: "هل لديك تاريخ شخصي للإصابة بسكتة دماغية أو إصابة دماغية؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    // 28. Medications
+    composer.slide({ pageProgress: "28/35" });
+    composer.textInput("medications", {
+        question: translate(localization, {
+            en: "Any medications you’re currently taking?",
+            ar: "أي أدوية تتناولها حالياً؟",
+        }),
+    });
+
+    // 29. Allergies
+    composer.slide({ pageProgress: "29/35" });
+    composer.textInput("allergies", {
+        question: translate(localization, {
+            en: "Allergies?",
+            ar: "هل لديك حساسية؟",
+        }),
+    });
+
+    // 30. Past History
+    composer.slide({ pageProgress: "30/35" });
+    composer.textInput("past_history", {
+        multiline: true,
+        question: translate(localization, {
+            en: "Past Medical/Psychiatric/Surgical History",
+            ar: "التاريخ الطبي/النفسي/الجراحي السابق",
+        }),
+    });
+
+    // 31. Social Status
+    composer.slide({ pageProgress: "31/35" });
+    composer.textInput("social_history", {
+        multiline: true,
+        question: translate(localization, {
+            en: "Social status? Smoker? Illicit drug/Alcohol use?",
+            ar: "الحالة الاجتماعية؟ مدخن؟ تعاطي المخدرات/الكحول؟",
+        }),
+    });
+
+    // Review of Systems
+    composer.slide({ pageProgress: "32/35" });
+    composer.h2(
+        translate(localization, {
+            en: "Review of Systems",
+            ar: "مراجعة الأنظمة",
+        }),
+    );
+
+    composer.choiceInput("ros_psych", {
+        question: translate(localization, {
+            en: "Psychiatric: abnormal fear? Low mood?",
+            ar: "نفسي: خوف غير طبيعي؟ مزاج منخفض؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.slide({ pageProgress: "33/35" });
+    composer.choiceInput("ros_cns", {
+        question: translate(localization, {
+            en: "CNS: numbness? Weakness?",
+            ar: "الجهاز العصبي المركزي: تنميل؟ ضعف؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.slide({ pageProgress: "34/35" });
+    composer.choiceInput("ros_resp", {
+        question: translate(localization, {
+            en: "Respiratory: cough? shortness of breath?",
+            ar: "الجهاز التنفسي: سعال؟ ضيق في التنفس؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.choiceInput("ros_cvs", {
+        question: translate(localization, {
+            en: "Cardiovascular: palpitations?",
+            ar: "القلب والأوعية الدموية: خفقان؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.slide({ pageProgress: "35/35" });
+    composer.choiceInput("ros_gi", {
+        question: translate(localization, {
+            en: "GI: nausea/vomiting? diarrhea or constipations?",
+            ar: "الجهاز الهضمي: غثيان/قيء؟ إسهال أو إمساك؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.choiceInput("ros_gu", {
+        question: translate(localization, {
+            en: "Urinary: difficulty urinating? Or incontinence?",
+            ar: "البولي: صعوبة في التبول؟ أو سلس البول؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    composer.choiceInput("ros_skin", {
+        question: translate(localization, {
+            en: "Skin: rash?",
+            ar: "الجلد: طفح جلدي؟",
+        }),
+        choices: [
+            translate(localization, { en: "Yes", ar: "نعم" }),
+            translate(localization, { en: "No", ar: "لا" }),
+        ],
+    });
+
+    return composer;
+}

@@ -3,7 +3,31 @@ export const GOOGLE_SCRIPT_URL =
 	"https://script.google.com/macros/s/AKfycbwNyLO_fWiudzmMVmU6OEaPI2PAjGWlV0kU8nd_QsmNjrFL2fidoRiGIfJ8QqA325osRQ/exec";
 
 /**
- * Get form options with callbacks
+ * Get shared form configuration for Composer
+ * @param {string} localization - Language code
+ * @returns {Object} Shared configuration
+ */
+export function getSharedFormConfig(localization = "en") {
+	return {
+		formStyle: "conversational",
+		fontSize: "lg",
+		rounded: "pill",
+		restartButton: "show",
+		buttonAlignment: "end",
+		paddingInlineBottom: 80,
+		paddingInlineTop: 100,
+		colorScheme: "light",
+		accent: "#09595C",
+		accentForeground: "#ffffff",
+		backgroundColor: "#ffffff",
+		color: "#063E40",
+		localization: localization,
+		dir: localization === "ar" ? "rtl" : "ltr",
+	};
+}
+
+/**
+ * Get form options with callbacks for FormRenderer
  * @param {string} localization - Language code
  * @returns {Object} Form options
  */
