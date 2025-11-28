@@ -92,13 +92,13 @@ export function createYourFormComposer(localization = "en") {
     })
   );
 
-  // Add start slide
-  composer.startSlide({
-    buttonText: translate(localization, {
-      en: "Start",
-      ar: "ابدأ",
-    }),
-  });
+  // Optional: Add introductory paragraph
+  composer.p(
+    translate(localization, {
+      en: "Brief description of this form",
+      ar: "وصف موجز لهذا النموذج",
+    })
+  );
 
   // Add your form fields with progress indicators
   composer.slide({ pageProgress: "1/3" });
@@ -265,18 +265,13 @@ All field types support these common options:
 Use `composer.slide(options)` to create multi-step forms:
 
 ```javascript
-// Start slide (first screen with Start button)
-composer.startSlide({
-  buttonText: "Start",
-  buttonText: translate(lang, { en: "Start", ar: "ابدأ" })
-});
-
 // Regular slide with progress
 composer.slide({
   pageProgress: "1/3",           // Show progress
   jumpCondition: "field == 'value'" // Conditional jump (skip if false)
 });
 
+// Note: Start slides are NOT used in this project - forms begin directly with the first question slide
 // Final slide (usually auto-generated for submit)
 ```
 

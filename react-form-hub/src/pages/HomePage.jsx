@@ -17,6 +17,7 @@ const HomePage = () => {
     availableForms: { en: "Available Forms", ar: "النماذج المتاحة" },
     demoForm: { en: "Demo Form", ar: "النموذج التجريبي" },
     feedbackForm: { en: "Feedback Form", ar: "نموذج الملاحظات" },
+    surveyForm: { en: "Survey Form", ar: "نموذج الاستبيان" },
     enterName: { en: "Enter Form Name (e.g., Contact)", ar: "أدخل اسم النموذج (مثلاً: تواصل)" },
     generate: { en: "Generate Code", ar: "توليد الكود" },
     copyCode: { en: "Copy Code", ar: "نسخ الكود" },
@@ -160,6 +161,9 @@ export default ${formName}FormPage;
             </Link>
             <Link to="/feedback-form" className="form-link-card">
               {txt('feedbackForm')}
+            </Link>
+            <Link to="/survey-form" className="form-link-card">
+              {txt('surveyForm')}
             </Link>
             <Link to="/tester-form" className="form-link-card">
               نموذج تسليم الأصول

@@ -454,9 +454,13 @@ export function createComprehensiveFormComposer(localization = "en") {
   });
 
   composer.h1(translate(localization, { en: "Survey", ar: "الاستبيان" }));
-  composer.startSlide({
-    buttonText: translate(localization, { en: "Start", ar: "ابدأ" }),
-  });
+
+  composer.p(
+    translate(localization, {
+      en: "Please complete this comprehensive survey",
+      ar: "يرجى إكمال هذا الاستبيان الشامل",
+    })
+  );
 
   // Pattern 1: Contact Information
   composer.slide({ pageProgress: "1/4" });

@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import DemoFormPage from "./pages/DemoFormPage";
 import FeedbackFormPage from "./pages/FeedbackFormPage";
 import TesterFormPage from "./pages/TesterFormPage";
+import SurveyFormPage from "./pages/SurveyFormPage";
 import "./App.css";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="demo-form" element={<DemoFormPage />} />
           <Route path="feedback-form" element={<FeedbackFormPage />} />
           <Route path="tester-form" element={<TesterFormPage />} />
+          <Route path="survey-form" element={<SurveyFormPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

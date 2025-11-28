@@ -1,0 +1,86 @@
+/**
+ * PHA Theme Color Reference
+ *
+ * This file provides all official PHA brand colors in CSS custom properties format.
+ * Use these variables in your stylesheets for consistent theming.
+ */
+
+:root {
+  /* Primary Brand Colors */
+  --pha-primary: #09595c;
+  --pha-primary-dark: #063e40;
+  --pha-primary-hover: #063e40;
+
+  /* Text Colors */
+  --pha-text-primary: #063e40;
+  --pha-text-secondary: #666;
+  --pha-text-on-primary: #ffffff;
+
+  /* Background Colors */
+  --pha-bg-main: #ffffff;
+  --pha-bg-secondary: #f5f5f5;
+  --pha-bg-hover: #e0e0e0;
+  --pha-bg-code: #1e1e1e;
+
+  /* Border Colors */
+  --pha-border-light: #e0e0e0;
+  --pha-border-medium: #ccc;
+  --pha-border-dark: #cccccc;
+
+  /* State Colors */
+  --pha-disabled: #cccccc;
+  --pha-focus: #09595c;
+
+  /* Opacity Variants */
+  --pha-bg-semi-transparent: rgba(245, 245, 245, 0.95);
+}
+
+/* Usage Examples */
+
+/* Primary Button */
+.example-primary-button {
+  background-color: var(--pha-primary);
+  color: var(--pha-text-on-primary);
+  border: none;
+}
+
+.example-primary-button:hover {
+  background-color: var(--pha-primary-hover);
+}
+
+/* Link */
+.example-link {
+  color: var(--pha-primary);
+}
+
+.example-link:hover {
+  color: var(--pha-primary-dark);
+}
+
+/* Card */
+.example-card {
+  background-color: var(--pha-bg-secondary);
+  border: 1px solid var(--pha-border-light);
+  color: var(--pha-text-primary);
+}
+
+.example-card:hover {
+  background-color: var(--pha-bg-hover);
+}
+
+/* Input */
+.example-input {
+  border: 2px solid var(--pha-border-light);
+  font-family: "Majalla", sans-serif;
+}
+
+.example-input:focus {
+  border-color: var(--pha-focus);
+  outline: none;
+}
+
+/* Disabled State */
+.example-button:disabled {
+  background-color: var(--pha-disabled);
+  cursor: not-allowed;
+}

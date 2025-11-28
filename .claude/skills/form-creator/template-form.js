@@ -45,14 +45,6 @@ export function createTemplateFormComposer(localization = "en") {
     })
   );
 
-  // Start slide
-  composer.startSlide({
-    buttonText: translate(localization, {
-      en: "Start",
-      ar: "ابدأ",
-    }),
-  });
-
   // ============================================================================
   // Slide 1: Basic Information
   // ============================================================================

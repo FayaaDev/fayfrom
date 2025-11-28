@@ -87,7 +87,7 @@ const translations = {
 		"phone-number-label": "رقم الهاتف",
 		"previous-btn": "السابق",
 		"required": "مطلوب",
-		"restart-btn": "إعادة البدء",
+		"restart-btn": "إعادة الاستبيان",
 		"select-box-placeholder": "اختر خياراً",
 		"slide-error": "خطأ!",
 		"star-plural": "نجوم",
