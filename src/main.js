@@ -2752,6 +2752,80 @@ class Formsmd {
 					}
 				});
 			});
+
+			// Add global keydown listener for choice shortcuts and Enter navigation
+			window.addEventListener("keydown", function (e) {
+				const activeSlide =
+					instance.container.querySelector(".fmd-slide-active");
+				if (!activeSlide) {
+					return;
+				}
+
+				// Enter key to move to next slide
+				if (e.key === "Enter") {
+					// Ignore if inside a textarea (needs new lines)
+					if (e.target.tagName === "TEXTAREA") {
+						return;
+					}
+
+					// Ignore if focus is on a button or link (let them handle it)
+					if (e.target.tagName === "BUTTON" || e.target.tagName === "A") {
+						return;
+					}
+
+					// Check if focus is on a text-like input that naturally submits forms on Enter
+					const autoSubmitTypes = [
+						"text",
+						"email",
+						"password",
+						"number",
+						"search",
+						"tel",
+						"url",
+					];
+					if (
+						e.target.tagName === "INPUT" &&
+						autoSubmitTypes.includes(e.target.type)
+					) {
+						// Let the form submit event handle it
+						return;
+					}
+
+					// For other cases (Radio, Checkbox, Select, Body focus), trigger the next/submit button
+					const nextBtn = activeSlide.querySelector(
+						".fmd-next-btn, .fmd-submit-btn",
+					);
+					if (
+						nextBtn &&
+						!nextBtn.disabled &&
+						!nextBtn.classList.contains("fmd-btn-processing")
+					) {
+						e.preventDefault();
+						nextBtn.click();
+					}
+					return;
+				}
+
+				// Check if active slide has choice inputs (radio buttons)
+				// And specifically single choice (radio)
+				const radioInputs = activeSlide.querySelectorAll(
+					'input[type="radio"].fmd-form-str-check-input',
+				);
+
+				if (radioInputs.length > 0) {
+					// Map keys A-Z to indices 0-25
+					const key = e.key.toUpperCase();
+					const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+					const index = alphabet.indexOf(key);
+
+					if (index >= 0 && index < radioInputs.length) {
+						const input = radioInputs[index];
+						if (!input.disabled) {
+							input.click();
+						}
+					}
+				}
+			});
 		}
 
 		// Copy buttons

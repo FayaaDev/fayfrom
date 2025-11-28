@@ -90,25 +90,25 @@
 				// Clear the form container
 				document.getElementById("form-container").innerHTML = "";
 
-			// Create form with ID and Google Sheets endpoint
-			const composer = new Composer({
-				id: "demo-form",
-				formStyle: "conversational",
-				fontSize: "lg",
-				rounded: "pill",
-				restartButton: "show",
-				buttonAlignment: "end",
-				paddingInlineBottom: 80,
-				paddingInlineTop: 100,
-				colorScheme: "light",
-				accent: "#09595C",
-				accentForeground: "#ffffff",
-				backgroundColor: "#ffffff",
-				color: "#063E40",
-				postUrl: GOOGLE_SCRIPT_URL,
-				localization: localization,
-				dir: localization === "ar" ? "rtl" : "ltr",
-			});				// Debug: log the generated template
+				// Create form with ID and Google Sheets endpoint
+				const composer = new Composer({
+					id: "demo-form",
+					formStyle: "conversational",
+					fontSize: "lg",
+					rounded: "pill",
+					restartButton: "show",
+					buttonAlignment: "end",
+					paddingInlineBottom: 80,
+					paddingInlineTop: 100,
+					colorScheme: "light",
+					accent: "#09595C",
+					accentForeground: "#ffffff",
+					backgroundColor: "#ffffff",
+					color: "#063E40",
+					postUrl: GOOGLE_SCRIPT_URL,
+					localization: localization,
+					dir: localization === "ar" ? "rtl" : "ltr",
+				}); // Debug: log the generated template
 				console.log("Generated template:", composer.template);
 
 				// Welcome slide
@@ -124,30 +124,36 @@
 						ar: "هذا نموذج تجريبي بسيط لعرض إمكانيات Forms.md.",
 					}),
 				);
-			composer.startSlide({
-				buttonText: translate(localization, {
-					en: "Get Started",
-					ar: "ابدأ",
-				}),
-			});
-//////////////////////////////////////////////////////////////////
-			// Slide 0: Name Selection
-			composer.slide({ pageProgress: "0/6" });
-			composer.selectBox("userName", {
-				question: translate(localization, {
-					en: "Please select your name:",
-					ar: "الرجاء اختيار اسمك:",
-				}),
-				options:
-					localization === "ar"
-						? ["أحمد محمد", "فاطمة علي", "محمد حسن", "سارة أحمد", "علي محمود"]
-						: ["Ahmed Mohammed", "Fatima Ali", "Mohammed Hassan", "Sarah Ahmed", "Ali Mahmoud"],
-				required: true,
-			});
+				composer.startSlide({
+					buttonText: translate(localization, {
+						en: "Get Started",
+						ar: "ابدأ",
+					}),
+				});
+				//////////////////////////////////////////////////////////////////
+				// Slide 0: Name Selection
+				composer.slide({ pageProgress: "0/6" });
+				composer.selectBox("userName", {
+					question: translate(localization, {
+						en: "Please select your name:",
+						ar: "الرجاء اختيار اسمك:",
+					}),
+					options:
+						localization === "ar"
+							? ["أحمد محمد", "فاطمة علي", "محمد حسن", "سارة أحمد", "علي محمود"]
+							: [
+									"Ahmed Mohammed",
+									"Fatima Ali",
+									"Mohammed Hassan",
+									"Sarah Ahmed",
+									"Ali Mahmoud",
+								],
+					required: true,
+				});
 
-			// Slide 1: Name
-			composer.slide({ pageProgress: "1/6" });
-			composer.textInput("fullName", {
+				// Slide 1: Name
+				composer.slide({ pageProgress: "1/6" });
+				composer.textInput("fullName", {
 					question: translate(localization, {
 						en: "What's your name?",
 						ar: "ما اسمك؟",
@@ -159,9 +165,9 @@
 					required: false,
 				});
 
-			// Slide 2: Email
-			composer.slide({ pageProgress: "2/6" });
-			composer.emailInput("email", {
+				// Slide 2: Email
+				composer.slide({ pageProgress: "2/6" });
+				composer.emailInput("email", {
 					question: translate(localization, {
 						en: "What's your email address?",
 						ar: "ما هو بريدك الإلكتروني؟",
@@ -173,10 +179,9 @@
 					required: false,
 				});
 
-
-			// Slide 4: Rating
-			composer.slide({ pageProgress: "3/6" });
-			composer.choiceInput("rating", {
+				// Slide 4: Rating
+				composer.slide({ pageProgress: "3/6" });
+				composer.choiceInput("rating", {
 					question: translate(localization, {
 						en: "How would you rate your experience?",
 						ar: "كيف تقيم تجربتك؟",
@@ -188,9 +193,9 @@
 					required: false,
 				});
 
-			// Slide 5: Feedback
-			composer.slide({ pageProgress: "4/6" });
-			composer.textInput("feedback", {
+				// Slide 5: Feedback
+				composer.slide({ pageProgress: "4/6" });
+				composer.textInput("feedback", {
 					question: translate(localization, {
 						en: "Any additional feedback?",
 						ar: "هل لديك أي ملاحظات إضافية؟",
@@ -203,9 +208,9 @@
 					required: false,
 				});
 
-							// Slide 6: URL
-			composer.slide({ pageProgress: "5/6" });
-			composer.urlInput("CompanyURL", {
+				// Slide 6: URL
+				composer.slide({ pageProgress: "5/6" });
+				composer.urlInput("CompanyURL", {
 					question: translate(localization, {
 						en: "What is your company's URL?",
 						ar: "ماهو رابط الشركة؟",
@@ -217,23 +222,23 @@
 					required: false,
 				});
 
-			// Initialize the form with light theme
-			const formsmd = new Formsmd(
-				composer.template,
-				document.getElementById("form-container"),
-				{
-					colorScheme: "light",
-					formsmdBranding: "hide",
-					fontSize: "lg",
-					restartButton: "show",
-					slideControls: "show",
-					pageProgress: "show",
-					paddingInlineBottom: 80,
-					paddingInlineTop: 100,
-					accent: "#09595C",
-					accentForeground: "#ffffff",
-					backgroundColor: "#ffffff",
-					color: "#063E40",
+				// Initialize the form with light theme
+				const formsmd = new Formsmd(
+					composer.template,
+					document.getElementById("form-container"),
+					{
+						colorScheme: "light",
+						formsmdBranding: "hide",
+						fontSize: "lg",
+						restartButton: "show",
+						slideControls: "show",
+						pageProgress: "show",
+						paddingInlineBottom: 80,
+						paddingInlineTop: 100,
+						accent: "#09595C",
+						accentForeground: "#ffffff",
+						backgroundColor: "#ffffff",
+						color: "#063E40",
 						onSubmit: (data) => {
 							console.log("Form submitted - data object:", data);
 							console.log(

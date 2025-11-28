@@ -65,56 +65,56 @@ src/
 Open `src/forms/definitions.js` and add a new form composer function:
 
 ```javascript
-export function createMyNewFormComposer(localization = 'en') {
-  if (!window.Composer) {
-    console.error('Composer not loaded yet');
-    return null;
-  }
+export function createMyNewFormComposer(localization = "en") {
+	if (!window.Composer) {
+		console.error("Composer not loaded yet");
+		return null;
+	}
 
-  const composer = new window.Composer({
-    id: "my-new-form",
-    formStyle: "conversational",
-    fontSize: "lg",
-    rounded: "pill",
-    restartButton: "show",
-    buttonAlignment: "end",
-    paddingInlineBottom: 80,
-    paddingInlineTop: 100,
-    colorScheme: "light",
-    accent: "#09595C",
-    accentForeground: "#ffffff",
-    backgroundColor: "#ffffff",
-    color: "#063E40",
-    postUrl: GOOGLE_SCRIPT_URL, // Or your custom endpoint
-    localization: localization,
-    dir: localization === "ar" ? "rtl" : "ltr",
-  });
+	const composer = new window.Composer({
+		id: "my-new-form",
+		formStyle: "conversational",
+		fontSize: "lg",
+		rounded: "pill",
+		restartButton: "show",
+		buttonAlignment: "end",
+		paddingInlineBottom: 80,
+		paddingInlineTop: 100,
+		colorScheme: "light",
+		accent: "#09595C",
+		accentForeground: "#ffffff",
+		backgroundColor: "#ffffff",
+		color: "#063E40",
+		postUrl: GOOGLE_SCRIPT_URL, // Or your custom endpoint
+		localization: localization,
+		dir: localization === "ar" ? "rtl" : "ltr",
+	});
 
-  // Add your form fields
-  composer.h1(
-    translate(localization, {
-      en: "My New Form",
-      ar: "النموذج الجديد",
-    })
-  );
-  
-  composer.startSlide({
-    buttonText: translate(localization, {
-      en: "Start",
-      ar: "ابدأ",
-    }),
-  });
+	// Add your form fields
+	composer.h1(
+		translate(localization, {
+			en: "My New Form",
+			ar: "النموذج الجديد",
+		}),
+	);
 
-  composer.slide({ pageProgress: "1/1" });
-  composer.textInput("fieldName", {
-    question: translate(localization, {
-      en: "Your question here?",
-      ar: "سؤالك هنا؟",
-    }),
-    required: true,
-  });
+	composer.startSlide({
+		buttonText: translate(localization, {
+			en: "Start",
+			ar: "ابدأ",
+		}),
+	});
 
-  return composer;
+	composer.slide({ pageProgress: "1/1" });
+	composer.textInput("fieldName", {
+		question: translate(localization, {
+			en: "Your question here?",
+			ar: "سؤالك هنا؟",
+		}),
+		required: true,
+	});
+
+	return composer;
 }
 ```
 
@@ -129,29 +129,29 @@ import FormRenderer from "../components/FormRenderer";
 import { createMyNewFormComposer, getFormOptions } from "../forms/definitions";
 
 const MyNewFormPage = () => {
-  const { currentLang } = useOutletContext();
-  const [composer, setComposer] = useState(null);
-  const [options, setOptions] = useState(null);
+	const { currentLang } = useOutletContext();
+	const [composer, setComposer] = useState(null);
+	const [options, setOptions] = useState(null);
 
-  useEffect(() => {
-    const newComposer = createMyNewFormComposer(currentLang);
-    const newOptions = getFormOptions(currentLang);
-    
-    setComposer(newComposer);
-    setOptions(newOptions);
-  }, [currentLang]);
+	useEffect(() => {
+		const newComposer = createMyNewFormComposer(currentLang);
+		const newOptions = getFormOptions(currentLang);
 
-  if (!composer || !options) {
-    return <div>Loading...</div>;
-  }
+		setComposer(newComposer);
+		setOptions(newOptions);
+	}, [currentLang]);
 
-  return (
-    <FormRenderer 
-      composer={composer} 
-      options={options}
-      id="my-new-form-container"
-    />
-  );
+	if (!composer || !options) {
+		return <div>Loading...</div>;
+	}
+
+	return (
+		<FormRenderer
+			composer={composer}
+			options={options}
+			id="my-new-form-container"
+		/>
+	);
 };
 
 export default MyNewFormPage;
@@ -165,7 +165,7 @@ Open `src/App.jsx` and add your new route:
 import MyNewFormPage from "./pages/MyNewFormPage";
 
 // ... in the Routes component
-<Route path="my-new-form" element={<MyNewFormPage />} />
+<Route path="my-new-form" element={<MyNewFormPage />} />;
 ```
 
 ### Step 4: Add Navigation Link
@@ -174,7 +174,7 @@ Open `src/layouts/HubLayout.jsx` and add a navigation link:
 
 ```javascript
 <Link to="/my-new-form" className="nav-link">
-  {currentLang === "ar" ? "النموذج الجديد" : "My New Form"}
+	{currentLang === "ar" ? "النموذج الجديد" : "My New Form"}
 </Link>
 ```
 

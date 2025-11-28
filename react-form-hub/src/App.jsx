@@ -8,19 +8,19 @@ import SurveyFormPage from "./pages/SurveyFormPage";
 import "./App.css";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HubLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="demo-form" element={<DemoFormPage />} />
-          <Route path="feedback-form" element={<FeedbackFormPage />} />
-          <Route path="tester-form" element={<TesterFormPage />} />
-          <Route path="survey-form" element={<SurveyFormPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<HubLayout />}>
+					<Route index element={<HomePage />} />
+					<Route path="demo-form" element={<DemoFormPage />} />
+					<Route path="feedback-form" element={<FeedbackFormPage />} />
+					<Route path="tester-form" element={<TesterFormPage />} />
+					<Route path="survey-form" element={<SurveyFormPage />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;

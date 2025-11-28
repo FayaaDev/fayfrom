@@ -640,6 +640,9 @@ const choiceFieldTemplate = `
 					{% if validParams.autofocus %}data-fmd-autofocus{% endif %}
 				>
 				<label class="fmd-form-check-label" for="{{ inputId }}-{{ loop.index }}">
+					{% if not validParams.multiple and not isPictureChoice %}
+					<span class="fmd-key-hint">{{ keyHints[loop.index0] }}</span>
+					{% endif %}
 					{% if isPictureChoice %}
 					<span class="fmd-form-check-frame">
 						<img src="{{ choice.image }}" alt="{{ choice.label }}">
@@ -784,6 +787,7 @@ function createChoiceField(
 		required: required,
 		validParams: validParams,
 		translations: translations,
+		keyHints: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
 	});
 }
 

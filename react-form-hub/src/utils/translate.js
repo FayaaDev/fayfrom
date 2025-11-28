@@ -5,5 +5,5 @@
  * @returns {string} The translated string
  */
 export function translate(locale, translations) {
-  return translations[locale] || translations['en'] || '';
+	return translations[locale] || translations["en"] || "";
 }

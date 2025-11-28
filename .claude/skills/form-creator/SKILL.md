@@ -8,6 +8,7 @@ description: Guide for creating new forms in the React Form Hub following establ
 ## When to Use This Skill
 
 Use this skill when you need to:
+
 - Add a new form to the React Form Hub application (`react-form-hub/`)
 - Follow established patterns for form creation with proper localization
 - Ensure consistent theming and styling across all forms
@@ -31,6 +32,7 @@ Use this skill when you need to:
 ## React Form Hub Architecture
 
 The React Form Hub is a multi-language form application with:
+
 - English & Arabic support with RTL layout switching
 - Consistent theming across all forms
 - Shared form configuration and options
@@ -73,55 +75,56 @@ import { translate } from "../utils/translate.js";
 import { getSharedFormConfig } from "./formUtils.js";
 
 export function createYourFormComposer(localization = "en") {
-  if (!window.Composer) {
-    console.error("Composer not loaded yet");
-    return null;
-  }
+	if (!window.Composer) {
+		console.error("Composer not loaded yet");
+		return null;
+	}
 
-  const composer = new window.Composer({
-    id: "your-form-id",
-    ...getSharedFormConfig(localization),
-    postUrl: "YOUR_ENDPOINT_URL", // Or use GOOGLE_SCRIPT_URL from formUtils
-  });
+	const composer = new window.Composer({
+		id: "your-form-id",
+		...getSharedFormConfig(localization),
+		postUrl: "YOUR_ENDPOINT_URL", // Or use GOOGLE_SCRIPT_URL from formUtils
+	});
 
-  // Add form header
-  composer.h1(
-    translate(localization, {
-      en: "Your Form Title",
-      ar: "عنوان النموذج",
-    })
-  );
+	// Add form header
+	composer.h1(
+		translate(localization, {
+			en: "Your Form Title",
+			ar: "عنوان النموذج",
+		}),
+	);
 
-  // Optional: Add introductory paragraph
-  composer.p(
-    translate(localization, {
-      en: "Brief description of this form",
-      ar: "وصف موجز لهذا النموذج",
-    })
-  );
+	// Optional: Add introductory paragraph
+	composer.p(
+		translate(localization, {
+			en: "Brief description of this form",
+			ar: "وصف موجز لهذا النموذج",
+		}),
+	);
 
-  // Add your form fields with progress indicators
-  composer.slide({ pageProgress: "1/3" });
-  composer.textInput("fieldName", {
-    question: translate(localization, {
-      en: "Your question?",
-      ar: "سؤالك؟",
-    }),
-    required: true,
-  });
+	// Add your form fields with progress indicators
+	composer.slide({ pageProgress: "1/3" });
+	composer.textInput("fieldName", {
+		question: translate(localization, {
+			en: "Your question?",
+			ar: "سؤالك؟",
+		}),
+		required: true,
+	});
 
-  // Add more slides and fields as needed
-  composer.slide({ pageProgress: "2/3" });
-  // ... more fields
+	// Add more slides and fields as needed
+	composer.slide({ pageProgress: "2/3" });
+	// ... more fields
 
-  composer.slide({ pageProgress: "3/3" });
-  // ... final fields
+	composer.slide({ pageProgress: "3/3" });
+	// ... final fields
 
-  return composer;
+	return composer;
 }
 ```
 
 **Key Points:**
+
 - Always check `if (!window.Composer)` before creating
 - Use `getSharedFormConfig(localization)` for consistent theming
 - Use `translate()` for all user-facing text
@@ -139,35 +142,36 @@ import { createYourFormComposer } from "../forms/YourFormName.js";
 import { getFormOptions } from "../forms/formUtils.js";
 
 const YourFormPage = () => {
-  const { currentLang } = useOutletContext();
-  const [composer, setComposer] = useState(null);
-  const [options, setOptions] = useState(null);
+	const { currentLang } = useOutletContext();
+	const [composer, setComposer] = useState(null);
+	const [options, setOptions] = useState(null);
 
-  useEffect(() => {
-    const newComposer = createYourFormComposer(currentLang);
-    const newOptions = getFormOptions(currentLang);
+	useEffect(() => {
+		const newComposer = createYourFormComposer(currentLang);
+		const newOptions = getFormOptions(currentLang);
 
-    setComposer(newComposer);
-    setOptions(newOptions);
-  }, [currentLang]);
+		setComposer(newComposer);
+		setOptions(newOptions);
+	}, [currentLang]);
 
-  if (!composer || !options) {
-    return <div>Loading...</div>;
-  }
+	if (!composer || !options) {
+		return <div>Loading...</div>;
+	}
 
-  return (
-    <FormRenderer
-      composer={composer}
-      options={options}
-      id="your-form-container"
-    />
-  );
+	return (
+		<FormRenderer
+			composer={composer}
+			options={options}
+			id="your-form-container"
+		/>
+	);
 };
 
 export default YourFormPage;
 ```
 
 **Key Points:**
+
 - Use `useOutletContext()` to get `currentLang` from parent layout
 - Recreate composer when language changes (in `useEffect` dependency array)
 - Use unique container ID for each form
@@ -180,7 +184,7 @@ Open `react-form-hub/src/App.jsx` and add the import and route:
 import YourFormPage from "./pages/YourFormPage";
 
 // Inside the <Routes> component, within the HubLayout route:
-<Route path="your-form" element={<YourFormPage />} />
+<Route path="your-form" element={<YourFormPage />} />;
 ```
 
 ### Step 4: Add Navigation Link
@@ -189,11 +193,12 @@ Open `react-form-hub/src/layouts/HubLayout.jsx` and add a navigation link:
 
 ```javascript
 <Link to="/your-form" className="nav-link">
-  {currentLang === "ar" ? "النموذج الخاص بك" : "Your Form"}
+	{currentLang === "ar" ? "النموذج الخاص بك" : "Your Form"}
 </Link>
 ```
 
 **Key Points:**
+
 - Add both English and Arabic text
 - Use consistent className for styling
 - Path should match the route from Step 3
@@ -203,6 +208,7 @@ Open `react-form-hub/src/layouts/HubLayout.jsx` and add a navigation link:
 See https://docs.forms.md/ for complete documentation on:
 
 ### Text-Based Inputs
+
 - `textInput(name, options)` - Single-line text
 - `textareaInput(name, options)` - Multi-line text
 - `emailInput(name, options)` - Email with validation
@@ -211,6 +217,7 @@ See https://docs.forms.md/ for complete documentation on:
 - `phoneInput(name, options)` - Phone number with country codes
 
 ### Selection Inputs
+
 - `choiceInput(name, options)` - Radio buttons (single choice)
 - `checkboxInput(name, options)` - Checkboxes (multiple choices)
 - `selectBox(name, options)` - Dropdown select
@@ -218,15 +225,18 @@ See https://docs.forms.md/ for complete documentation on:
 - `opinionScaleInput(name, options)` - Numeric scale (e.g., 1-10)
 
 ### Date and Time
+
 - `dateInput(name, options)` - Date picker
 - `timeInput(name, options)` - Time picker
 - `dateTimeInput(name, options)` - Combined date and time
 
 ### Other Field Types
+
 - `fileInput(name, options)` - File upload
 - `matrixInput(name, options)` - Grid/matrix of questions
 
 ### Content Elements
+
 - `h1(text)`, `h2(text)`, `h3(text)` - Headings
 - `p(text)` - Paragraph text
 - `image(src, options)` - Images
@@ -267,8 +277,8 @@ Use `composer.slide(options)` to create multi-step forms:
 ```javascript
 // Regular slide with progress
 composer.slide({
-  pageProgress: "1/3",           // Show progress
-  jumpCondition: "field == 'value'" // Conditional jump (skip if false)
+	pageProgress: "1/3", // Show progress
+	jumpCondition: "field == 'value'", // Conditional jump (skip if false)
 });
 
 // Note: Start slides are NOT used in this project - forms begin directly with the first question slide
@@ -280,12 +290,14 @@ composer.slide({
 All forms in the React Form Hub use shared configuration from `formUtils.js`:
 
 **Theme Colors:**
+
 - Accent: `#09595C` (teal)
 - Accent Foreground: `#ffffff` (white)
 - Background: `#ffffff` (white)
 - Text Color: `#063E40` (dark teal)
 
 **Form Settings:**
+
 - Style: `conversational` (one question per slide)
 - Font Size: `lg` (large)
 - Rounded corners: `pill` (fully rounded buttons)
@@ -304,18 +316,18 @@ import { translate } from "../utils/translate.js";
 
 // For field questions
 question: translate(localization, {
-  en: "What is your name?",
-  ar: "ما اسمك؟"
-})
+	en: "What is your name?",
+	ar: "ما اسمك؟",
+});
 
 // For choices
 choices: [
-  translate(localization, { en: "Option 1", ar: "الخيار 1" }),
-  translate(localization, { en: "Option 2", ar: "الخيار 2" })
-]
+	translate(localization, { en: "Option 1", ar: "الخيار 1" }),
+	translate(localization, { en: "Option 2", ar: "الخيار 2" }),
+];
 
 // For button text
-buttonText: translate(localization, { en: "Continue", ar: "استمر" })
+buttonText: translate(localization, { en: "Continue", ar: "استمر" });
 ```
 
 ## Google Sheets Integration
@@ -330,9 +342,9 @@ To connect forms to Google Sheets:
 import { GOOGLE_SCRIPT_URL } from "./formUtils.js";
 
 const composer = new window.Composer({
-  id: "your-form",
-  postUrl: GOOGLE_SCRIPT_URL,
-  // ... other config
+	id: "your-form",
+	postUrl: GOOGLE_SCRIPT_URL,
+	// ... other config
 });
 ```
 
@@ -344,11 +356,11 @@ Show/hide fields based on other field values:
 
 ```javascript
 composer.textInput("otherPosition", {
-  question: "Please specify",
-  displayCondition: {
-    dependencies: ["position"],
-    condition: "position == 'Other'"
-  }
+	question: "Please specify",
+	displayCondition: {
+		dependencies: ["position"],
+		condition: "position == 'Other'",
+	},
 });
 ```
 
@@ -358,8 +370,8 @@ Skip entire slides based on conditions:
 
 ```javascript
 composer.slide({
-  jumpCondition: "referralSource == 'Recommendation'",
-  pageProgress: "3/4"
+	jumpCondition: "referralSource == 'Recommendation'",
+	pageProgress: "3/4",
 });
 // This slide only shows if referralSource equals 'Recommendation'
 ```
@@ -384,6 +396,7 @@ npm run dev
 ```
 
 Test checklist:
+
 - Form loads without errors
 - All fields display correctly
 - Language toggle works (EN/AR)
@@ -399,24 +412,25 @@ Test checklist:
 
 ```javascript
 composer.choiceInput("category", {
-  question: translate(lang, { en: "Select category", ar: "اختر الفئة" }),
-  choices: [
-    translate(lang, { en: "Option 1", ar: "الخيار 1" }),
-    translate(lang, { en: "Option 2", ar: "الخيار 2" }),
-    translate(lang, { en: "Other", ar: "أخرى" })
-  ],
-  required: true
+	question: translate(lang, { en: "Select category", ar: "اختر الفئة" }),
+	choices: [
+		translate(lang, { en: "Option 1", ar: "الخيار 1" }),
+		translate(lang, { en: "Option 2", ar: "الخيار 2" }),
+		translate(lang, { en: "Other", ar: "أخرى" }),
+	],
+	required: true,
 });
 
 composer.slide({ pageProgress: "2/3" });
 
 composer.textInput("categoryOther", {
-  question: translate(lang, { en: "Please specify", ar: "يرجى التحديد" }),
-  required: true,
-  displayCondition: {
-    dependencies: ["category"],
-    condition: "category == '" + translate(lang, { en: "Other", ar: "أخرى" }) + "'"
-  }
+	question: translate(lang, { en: "Please specify", ar: "يرجى التحديد" }),
+	required: true,
+	displayCondition: {
+		dependencies: ["category"],
+		condition:
+			"category == '" + translate(lang, { en: "Other", ar: "أخرى" }) + "'",
+	},
 });
 ```
 
@@ -425,40 +439,51 @@ composer.textInput("categoryOther", {
 ```javascript
 // Main question
 composer.choiceInput("hasExperience", {
-  question: translate(lang, { en: "Do you have experience?", ar: "هل لديك خبرة؟" }),
-  choices: [
-    translate(lang, { en: "Yes", ar: "نعم" }),
-    translate(lang, { en: "No", ar: "لا" })
-  ]
+	question: translate(lang, {
+		en: "Do you have experience?",
+		ar: "هل لديك خبرة؟",
+	}),
+	choices: [
+		translate(lang, { en: "Yes", ar: "نعم" }),
+		translate(lang, { en: "No", ar: "لا" }),
+	],
 });
 
 // Only show if "Yes"
 composer.slide({
-  jumpCondition: "hasExperience == '" + translate(lang, { en: "Yes", ar: "نعم" }) + "'",
-  pageProgress: "2/3"
+	jumpCondition:
+		"hasExperience == '" + translate(lang, { en: "Yes", ar: "نعم" }) + "'",
+	pageProgress: "2/3",
 });
 
 composer.numberInput("yearsExperience", {
-  question: translate(lang, { en: "Years of experience?", ar: "سنوات الخبرة؟" })
+	question: translate(lang, {
+		en: "Years of experience?",
+		ar: "سنوات الخبرة؟",
+	}),
 });
 ```
 
 ## Troubleshooting
 
 **Problem:** Form doesn't render
+
 - Check browser console for errors
 - Verify `window.Composer` is loaded
 - Ensure all translate() calls have both languages
 
 **Problem:** Language toggle doesn't work
+
 - Verify `useEffect` dependency includes `[currentLang]`
 - Check that form recreates on language change
 
 **Problem:** RTL layout issues
+
 - Ensure correct CSS is imported in `index.html`
 - Verify `dir` property is set in Composer config
 
 **Problem:** Conditional logic not working
+
 - Check field name spelling in dependencies
 - Verify condition syntax matches field values exactly
 - Use browser DevTools to inspect form data

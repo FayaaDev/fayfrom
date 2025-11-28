@@ -1,9 +1,9 @@
-import { translate } from '../utils/translate.js';
-import { GOOGLE_SCRIPT_URL } from './formUtils.js';
+import { translate } from "../utils/translate.js";
+import { GOOGLE_SCRIPT_URL } from "./formUtils.js";
 
-export function createSurveyFormComposer(localization = 'en') {
+export function createSurveyFormComposer(localization = "en") {
 	if (!window.Composer) {
-		console.error('Composer not loaded yet');
+		console.error("Composer not loaded yet");
 		return null;
 	}
 

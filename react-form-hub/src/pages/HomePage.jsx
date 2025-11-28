@@ -2,41 +2,44 @@ import { useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 
 const HomePage = () => {
-  const { currentLang } = useOutletContext();
-  const [view, setView] = useState("main"); // main, review, create
-  const [newFormName, setNewFormName] = useState("");
-  const [generatedFormCode, setGeneratedFormCode] = useState("");
-  const [generatedPageCode, setGeneratedPageCode] = useState("");
+	const { currentLang } = useOutletContext();
+	const [view, setView] = useState("main"); // main, review, create
+	const [newFormName, setNewFormName] = useState("");
+	const [generatedFormCode, setGeneratedFormCode] = useState("");
+	const [generatedPageCode, setGeneratedPageCode] = useState("");
 
-  const translations = {
-    welcome: { en: "Welcome to the Form Hub", ar: "مرحباً بك في مركز النماذج" },
-    subtitle: { en: "Select an option to proceed", ar: "اختر خياراً للمتابعة" },
-    createBtn: { en: "Create New Form", ar: "إنشاء نموذج جديد" },
-    reviewBtn: { en: "Review Forms", ar: "مراجعة النماذج" },
-    backBtn: { en: "Back", ar: "رجوع" },
-    availableForms: { en: "Available Forms", ar: "النماذج المتاحة" },
-    demoForm: { en: "Demo Form", ar: "النموذج التجريبي" },
-    feedbackForm: { en: "Feedback Form", ar: "نموذج الملاحظات" },
-    surveyForm: { en: "Survey Form", ar: "نموذج الاستبيان" },
-    enterName: { en: "Enter Form Name (e.g., Contact)", ar: "أدخل اسم النموذج (مثلاً: تواصل)" },
-    generate: { en: "Generate Code", ar: "توليد الكود" },
-    copyCode: { en: "Copy Code", ar: "نسخ الكود" },
-    formFile: { en: "Form Definition File", ar: "ملف تعريف النموذج" },
-    pageFile: { en: "Page Component File", ar: "ملف مكون الصفحة" },
-    codeInstructions: {
-      en: "Create these two files in your project:",
-      ar: "قم بإنشاء هذين الملفين في مشروعك:"
-    }
-  };
+	const translations = {
+		welcome: { en: "Welcome to the Form Hub", ar: "مرحباً بك في مركز النماذج" },
+		subtitle: { en: "Select an option to proceed", ar: "اختر خياراً للمتابعة" },
+		createBtn: { en: "Create New Form", ar: "إنشاء نموذج جديد" },
+		reviewBtn: { en: "Review Forms", ar: "مراجعة النماذج" },
+		backBtn: { en: "Back", ar: "رجوع" },
+		availableForms: { en: "Available Forms", ar: "النماذج المتاحة" },
+		demoForm: { en: "Demo Form", ar: "النموذج التجريبي" },
+		feedbackForm: { en: "Feedback Form", ar: "نموذج الملاحظات" },
+		surveyForm: { en: "Survey Form", ar: "نموذج الاستبيان" },
+		enterName: {
+			en: "Enter Form Name (e.g., Contact)",
+			ar: "أدخل اسم النموذج (مثلاً: تواصل)",
+		},
+		generate: { en: "Generate Code", ar: "توليد الكود" },
+		copyCode: { en: "Copy Code", ar: "نسخ الكود" },
+		formFile: { en: "Form Definition File", ar: "ملف تعريف النموذج" },
+		pageFile: { en: "Page Component File", ar: "ملف مكون الصفحة" },
+		codeInstructions: {
+			en: "Create these two files in your project:",
+			ar: "قم بإنشاء هذين الملفين في مشروعك:",
+		},
+	};
 
-  const txt = (key) => translations[key][currentLang];
+	const txt = (key) => translations[key][currentLang];
 
-  const generateCode = () => {
-    const name = newFormName.replace(/\s+/g, '');
-    const formName = name.charAt(0).toUpperCase() + name.slice(1);
+	const generateCode = () => {
+		const name = newFormName.replace(/\s+/g, "");
+		const formName = name.charAt(0).toUpperCase() + name.slice(1);
 
-    // 1. Form Definition Code
-    const formCode = `import { translate } from '../utils/translate.js';
+		// 1. Form Definition Code
+		const formCode = `import { translate } from '../utils/translate.js';
 import { GOOGLE_SCRIPT_URL } from './formUtils.js';
 
 export function create${formName}FormComposer(localization = 'en') {
@@ -97,8 +100,8 @@ export function create${formName}FormComposer(localization = 'en') {
 }
 `;
 
-    // 2. Page Component Code
-    const pageCode = `import { useOutletContext } from "react-router-dom";
+		// 2. Page Component Code
+		const pageCode = `import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FormRenderer from "../components/FormRenderer";
 import { create${formName}FormComposer } from "../forms/${formName}Form";
@@ -133,87 +136,140 @@ const ${formName}FormPage = () => {
 export default ${formName}FormPage;
 `;
 
-    setGeneratedFormCode(formCode);
-    setGeneratedPageCode(pageCode);
-  };
+		setGeneratedFormCode(formCode);
+		setGeneratedPageCode(pageCode);
+	};
 
-  return (
-    <div className="home-page">
-      <h1>{txt('welcome')}</h1>
+	return (
+		<div className="home-page">
+			<h1>{txt("welcome")}</h1>
 
-      {view === "main" && (
-        <div className="action-buttons">
-          <button className="main-action-btn" onClick={() => setView("create")}>
-            {txt('createBtn')}
-          </button>
-          <button className="main-action-btn" onClick={() => setView("review")}>
-            {txt('reviewBtn')}
-          </button>
-        </div>
-      )}
+			{view === "main" && (
+				<div className="action-buttons">
+					<button className="main-action-btn" onClick={() => setView("create")}>
+						{txt("createBtn")}
+					</button>
+					<button className="main-action-btn" onClick={() => setView("review")}>
+						{txt("reviewBtn")}
+					</button>
+				</div>
+			)}
 
-      {view === "review" && (
-        <div className="review-section">
-          <h2>{txt('availableForms')}</h2>
-          <div className="form-list">
-            <Link to="/demo-form" className="form-link-card">
-              {txt('demoForm')}
-            </Link>
-            <Link to="/feedback-form" className="form-link-card">
-              {txt('feedbackForm')}
-            </Link>
-            <Link to="/survey-form" className="form-link-card">
-              {txt('surveyForm')}
-            </Link>
-            <Link to="/tester-form" className="form-link-card">
-              نموذج تسليم الأصول
-            </Link>
-          </div>
-          <button className="back-btn" onClick={() => setView("main")}>{txt('backBtn')}</button>
-        </div>
-      )}
+			{view === "review" && (
+				<div className="review-section">
+					<h2>{txt("availableForms")}</h2>
+					<div className="form-list">
+						<Link to="/demo-form" className="form-link-card">
+							{txt("demoForm")}
+						</Link>
+						<Link to="/feedback-form" className="form-link-card">
+							{txt("feedbackForm")}
+						</Link>
+						<Link to="/survey-form" className="form-link-card">
+							{txt("surveyForm")}
+						</Link>
+						<Link to="/tester-form" className="form-link-card">
+							نموذج تسليم الأصول
+						</Link>
+					</div>
+					<button className="back-btn" onClick={() => setView("main")}>
+						{txt("backBtn")}
+					</button>
+				</div>
+			)}
 
-      {view === "create" && (
-        <div className="create-section">
-          {!generatedFormCode ? (
-            <>
-              <input
-                type="text"
-                value={newFormName}
-                onChange={(e) => setNewFormName(e.target.value)}
-                placeholder={txt('enterName')}
-                className="name-input"
-              />
-              <button className="generate-btn" onClick={generateCode} disabled={!newFormName}>
-                {txt('generate')}
-              </button>
-            </>
-          ) : (
-            <div className="code-display">
-              <p>{txt('codeInstructions')}</p>
+			{view === "create" && (
+				<div className="create-section">
+					{!generatedFormCode ? (
+						<>
+							<input
+								type="text"
+								value={newFormName}
+								onChange={(e) => setNewFormName(e.target.value)}
+								placeholder={txt("enterName")}
+								className="name-input"
+							/>
+							<button
+								className="generate-btn"
+								onClick={generateCode}
+								disabled={!newFormName}
+							>
+								{txt("generate")}
+							</button>
+						</>
+					) : (
+						<div className="code-display">
+							<p>{txt("codeInstructions")}</p>
 
-              <div className="code-block">
-                <h3>{txt('formFile')}: <code>src/forms/{newFormName.replace(/\s+/g, '')}Form.js</code></h3>
-                <textarea readOnly value={generatedFormCode} rows={15} className="code-textarea" />
-                <button className="copy-btn" onClick={() => navigator.clipboard.writeText(generatedFormCode)}>{txt('copyCode')}</button>
-              </div>
+							<div className="code-block">
+								<h3>
+									{txt("formFile")}:{" "}
+									<code>
+										src/forms/{newFormName.replace(/\s+/g, "")}Form.js
+									</code>
+								</h3>
+								<textarea
+									readOnly
+									value={generatedFormCode}
+									rows={15}
+									className="code-textarea"
+								/>
+								<button
+									className="copy-btn"
+									onClick={() =>
+										navigator.clipboard.writeText(generatedFormCode)
+									}
+								>
+									{txt("copyCode")}
+								</button>
+							</div>
 
-              <div className="code-block">
-                <h3>{txt('pageFile')}: <code>src/pages/{newFormName.replace(/\s+/g, '')}FormPage.jsx</code></h3>
-                <textarea readOnly value={generatedPageCode} rows={15} className="code-textarea" />
-                <button className="copy-btn" onClick={() => navigator.clipboard.writeText(generatedPageCode)}>{txt('copyCode')}</button>
-              </div>
+							<div className="code-block">
+								<h3>
+									{txt("pageFile")}:{" "}
+									<code>
+										src/pages/{newFormName.replace(/\s+/g, "")}FormPage.jsx
+									</code>
+								</h3>
+								<textarea
+									readOnly
+									value={generatedPageCode}
+									rows={15}
+									className="code-textarea"
+								/>
+								<button
+									className="copy-btn"
+									onClick={() =>
+										navigator.clipboard.writeText(generatedPageCode)
+									}
+								>
+									{txt("copyCode")}
+								</button>
+							</div>
 
-              <div className="code-actions">
-                <button className="reset-btn" onClick={() => { setGeneratedFormCode(""); setGeneratedPageCode(""); setNewFormName(""); }}>{txt('backBtn')}</button>
-              </div>
-            </div>
-          )}
-          {!generatedFormCode && <button className="back-btn" onClick={() => setView("main")}>{txt('backBtn')}</button>}
-        </div>
-      )}
-    </div>
-  );
+							<div className="code-actions">
+								<button
+									className="reset-btn"
+									onClick={() => {
+										setGeneratedFormCode("");
+										setGeneratedPageCode("");
+										setNewFormName("");
+									}}
+								>
+									{txt("backBtn")}
+								</button>
+							</div>
+						</div>
+					)}
+					{!generatedFormCode && (
+						<button className="back-btn" onClick={() => setView("main")}>
+							{txt("backBtn")}
+						</button>
+					)}
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default HomePage;

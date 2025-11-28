@@ -1,9 +1,7 @@
 {
-  "permissions": {
-    "allow": [
-      "Search the internet when needed and open websites"
-    ],
-    "deny": [],
-    "ask": []
-  }
+	"permissions": {
+		"allow": ["Search the internet when needed and open websites"],
+		"deny": [],
+		"ask": []
+	}
 }

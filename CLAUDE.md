@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
+Make all and any changes to our app in the React Form hub (`react-form-hub/`). Building a form from the core library is abandoned.
+
 Forms.md is an open-source form builder library that creates multi-step forms and surveys. The project consists of:
 
 1. **Core library** (`src/`) - Vanilla JavaScript form builder with two main APIs:
@@ -67,11 +69,13 @@ npx formsmd -i src -o site -s static
 The library is split into multiple specialized modules in `src/`:
 
 - **Entry points:**
+
   - `index.js` - Main export file exposing `Composer`, `Formsmd`, and `translate`
   - `main.js` - Contains the `Formsmd` class for rendering and managing forms
   - `composer.js` - Contains the `Composer` class for building form templates
 
 - **Parsing modules:**
+
   - `settings-parse.js` - Parses form settings from template strings
   - `slides-parse.js` - Parses slide structures and navigation
   - `data-blocks-parse.js` - Parses data blocks in templates
@@ -80,6 +84,7 @@ The library is split into multiple specialized modules in `src/`:
   - `spreadsheet-data-parse.js` - Parses spreadsheet data format
 
 - **Rendering modules:**
+
   - `templates-create.js` - Generates HTML templates for forms
   - `form-field-create.js` - Creates individual form field elements
   - `marked-renderer.js` - Custom Markdown renderer using marked.js
@@ -92,6 +97,7 @@ The library is split into multiple specialized modules in `src/`:
 ### Build Pipeline
 
 The build process (`npm run build`) runs in sequence:
+
 1. Generate RTL CSS from LTR using rtlcss
 2. Generate TypeScript definitions with tsc (from `src/*.js` to `types/`)
 3. Lint with ESLint
@@ -104,6 +110,7 @@ The build process (`npm run build`) runs in sequence:
 ### Webpack Configuration
 
 Creates two separate bundles (`webpack.config.js`):
+
 - `formsmd.bundle.min.js` - Full library bundle (entry: `src/main.js`)
 - `composer.bundle.min.js` - Composer-only bundle (entry: `src/composer.js`)
 - Both use `libraryTarget: "window"` for browser global exposure
@@ -118,6 +125,7 @@ A React SPA demonstrating Forms.md integration:
 
 - **Routing:** React Router v7 with outlet-based layout
 - **Structure:**
+
   - `components/FormRenderer.jsx` - Reusable wrapper that initializes Formsmd instances
   - `forms/` - Form definitions using Composer class
   - `layouts/HubLayout.jsx` - Main layout with navigation and language toggle
@@ -130,6 +138,7 @@ A React SPA demonstrating Forms.md integration:
 ### ESLint Configuration
 
 Root project uses flat config (`eslint.config.mjs`):
+
 - Files: `**/*.js` (CommonJS)
 - Rules: `dot-notation: error`, `curly: error`
 - Globals: Both browser and Node.js
@@ -139,6 +148,7 @@ React Form Hub has separate ESLint config for React/JSX.
 ### Google Sheets Integration
 
 The `google-apps-script/Code.js` provides a backend for form submissions:
+
 - Handles POST requests from forms
 - Validates reCAPTCHA tokens
 - Stores submissions in Google Sheets
@@ -150,6 +160,7 @@ The `google-apps-script/Code.js` provides a backend for form submissions:
 ### Composer API
 
 The `Composer` class provides methods to programmatically build form templates:
+
 - Initialize with settings: `new Composer({ id, postUrl, localization, ... })`
 - Add fields: `textInput()`, `emailInput()`, `choiceInput()`, `selectBox()`, etc.
 - Control flow: `slide()`, `startSlide()` for multi-step forms
@@ -158,6 +169,7 @@ The `Composer` class provides methods to programmatically build form templates:
 ### Formsmd API
 
 The `Formsmd` class renders and manages form instances:
+
 - Initialize: `new Formsmd(template, container, options)`
 - Render: `formsmd.init()`
 - Options include themes, reCAPTCHA, state saving, validation, etc.
@@ -165,14 +177,16 @@ The `Formsmd` class renders and manages form instances:
 ### Template Syntax
 
 Forms.md uses a custom Markdown-based syntax for form definitions. Templates can be:
+
 1. Created programmatically with `Composer`
 2. Written manually in Markdown files (for static site generator)
 
 ### Localization
 
 The `translate()` function takes a localization code and translations object:
+
 ```javascript
-translate('ar', { en: 'Hello', ar: 'مرحبا' }) // Returns 'مرحبا'
+translate("ar", { en: "Hello", ar: "مرحبا" }); // Returns 'مرحبا'
 ```
 
 Forms support RTL languages with separate CSS files (`formsmd.rtl.min.css`).
@@ -180,6 +194,7 @@ Forms support RTL languages with separate CSS files (`formsmd.rtl.min.css`).
 ## Distribution
 
 The library provides multiple distribution formats:
+
 - **CSS:** `dist/css/formsmd.min.css` (LTR) and `formsmd.rtl.min.css` (RTL)
 - **JavaScript bundles:** `dist/js/formsmd.bundle.min.js` and `composer.bundle.min.js`
 - **TypeScript types:** `types/*.d.ts` generated from JSDoc comments
