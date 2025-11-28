@@ -278,6 +278,14 @@ The form runner includes built-in keyboard shortcuts for better accessibility an
 - **Choice Hotkeys (A-Z)**: For single-choice questions (radio buttons), pressing keys 'A', 'B', 'C', etc., will automatically select the corresponding option.
   - Hints (A, B, C...) are automatically displayed next to options.
 
+### Custom Shortcuts (e.g., Yes/No)
+
+For specific forms (like Yes/No questionnaires), you can override the default A/B shortcuts with custom keys (e.g., Y/N). This requires updating the core library files:
+
+1.  **Assign a unique ID** to your form in the composer config (e.g., `id: "my-yes-no-form"`).
+2.  **Update `src/main.js`**: Add a check for your form ID in the keydown listener to map custom keys (Y/N) to choice indices (0/1).
+3.  **Update `src/form-field-create.js`**: Add a check for your form ID to display the corresponding visual hints (Y/N) instead of A/B.
+
 
 ## Slide Control
 

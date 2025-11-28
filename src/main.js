@@ -513,9 +513,8 @@ class Formsmd {
 		const rootElem = instance.container.querySelector(".fmd-root");
 		const localStorageKey =
 			rootElem.getAttribute("data-fmd-color-scheme-scope") === "isolate"
-				? `formsmd:${instance.getIdPrefix()}${window.location.hostname}${
-						window.location.pathname
-					}color-scheme`
+				? `formsmd:${instance.getIdPrefix()}${window.location.hostname}${window.location.pathname
+				}color-scheme`
 				: "formsmd:color-scheme";
 		const preferredColorScheme = localStorage.getItem(localStorageKey);
 		if (preferredColorScheme) {
@@ -537,9 +536,8 @@ class Formsmd {
 		const rootElem = instance.container.querySelector(".fmd-root");
 		const localStorageKey =
 			instance.state.settings["color-scheme-scope"] === "isolate"
-				? `formsmd:${instance.getIdPrefix()}${window.location.hostname}${
-						window.location.pathname
-					}color-scheme`
+				? `formsmd:${instance.getIdPrefix()}${window.location.hostname}${window.location.pathname
+				}color-scheme`
 				: "formsmd:color-scheme";
 		const currentColorScheme = rootElem.getAttribute("data-fmd-color-scheme");
 		if (currentColorScheme === "light") {
@@ -576,9 +574,8 @@ class Formsmd {
 	getOrCreateResponseId = () => {
 		const instance = this;
 
-		const localStorageKey = `formsmd:${instance.getIdPrefix()}${
-			window.location.hostname
-		}${window.location.pathname}response-id`;
+		const localStorageKey = `formsmd:${instance.getIdPrefix()}${window.location.hostname
+			}${window.location.pathname}response-id`;
 		let responseId = localStorage.getItem(localStorageKey);
 		if (!responseId) {
 			responseId = instance.createRandomId();
@@ -593,9 +590,8 @@ class Formsmd {
 	removeResponseId = () => {
 		const instance = this;
 
-		const localStorageKey = `formsmd:${instance.getIdPrefix()}${
-			window.location.hostname
-		}${window.location.pathname}response-id`;
+		const localStorageKey = `formsmd:${instance.getIdPrefix()}${window.location.hostname
+			}${window.location.pathname}response-id`;
 		localStorage.removeItem(localStorageKey);
 	};
 
@@ -608,9 +604,8 @@ class Formsmd {
 	saveFieldValue = (name, value) => {
 		const instance = this;
 
-		const localStorageKey = `formsmd:${instance.getIdPrefix()}${
-			window.location.hostname
-		}${window.location.pathname}form-data`;
+		const localStorageKey = `formsmd:${instance.getIdPrefix()}${window.location.hostname
+			}${window.location.pathname}form-data`;
 		let savedFormData = localStorage.getItem(localStorageKey) || "{}";
 		savedFormData = JSON.parse(savedFormData);
 		savedFormData[name] = value;
@@ -624,9 +619,8 @@ class Formsmd {
 	removeSavedFormData = () => {
 		const instance = this;
 
-		const localStorageKey = `formsmd:${instance.getIdPrefix()}${
-			window.location.hostname
-		}${window.location.pathname}form-data`;
+		const localStorageKey = `formsmd:${instance.getIdPrefix()}${window.location.hostname
+			}${window.location.pathname}form-data`;
 		localStorage.removeItem(localStorageKey);
 	};
 
@@ -644,7 +638,7 @@ class Formsmd {
 			.forEach((div) => {
 				const template =
 					instance.state.bindDivTemplates[
-						div.getAttribute("data-fmd-bind-template-ref")
+					div.getAttribute("data-fmd-bind-template-ref")
 					];
 				marked.use({
 					renderer: renderer,
@@ -1043,9 +1037,8 @@ class Formsmd {
 	setSavedFormData = () => {
 		const instance = this;
 
-		const localStorageKey = `formsmd:${instance.getIdPrefix()}${
-			window.location.hostname
-		}${window.location.pathname}form-data`;
+		const localStorageKey = `formsmd:${instance.getIdPrefix()}${window.location.hostname
+			}${window.location.pathname}form-data`;
 		const savedFormData = localStorage.getItem(localStorageKey);
 		if (!savedFormData) {
 			return;
@@ -1747,9 +1740,8 @@ class Formsmd {
 
 		const localization = instance.state.settings.localization;
 		const error = document.createElement("div");
-		const errorId = `${instance.getIdPrefix()}id_slide-${
-			instance.state.slideData.currentIndex
-		}-error`;
+		const errorId = `${instance.getIdPrefix()}id_slide-${instance.state.slideData.currentIndex
+			}-error`;
 		error.setAttribute("id", errorId);
 		const messageList = [];
 		if (messages.length > 0) {
@@ -2399,7 +2391,7 @@ class Formsmd {
 	 *
 	 * @param {Object} json
 	 */
-	onCompletion = (json) => {};
+	onCompletion = (json) => { };
 
 	/**
 	 * Go to the next slide.
@@ -2475,8 +2467,8 @@ class Formsmd {
 		// POST form data
 		const postCondition =
 			instance.state.settings.page === "form-slides" &&
-			(activeSlide.hasAttribute("data-fmd-post") ||
-				nextSlideAndIndex.slide.classList.contains("fmd-end-slide"))
+				(activeSlide.hasAttribute("data-fmd-post") ||
+					nextSlideAndIndex.slide.classList.contains("fmd-end-slide"))
 				? true
 				: false;
 		instance
@@ -2813,10 +2805,18 @@ class Formsmd {
 				);
 
 				if (radioInputs.length > 0) {
-					// Map keys A-Z to indices 0-25
 					const key = e.key.toUpperCase();
-					const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-					const index = alphabet.indexOf(key);
+					let index = -1;
+
+					// Special handling for Neurology History Form (Yes/No)
+					if (instance.state.settings.id === "neurology-history-form") {
+						if (key === "Y") index = 0;
+						else if (key === "N") index = 1;
+					} else {
+						// Map keys A-Z to indices 0-25
+						const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+						index = alphabet.indexOf(key);
+					}
 
 					if (index >= 0 && index < radioInputs.length) {
 						const input = radioInputs[index];
@@ -3230,7 +3230,7 @@ class Formsmd {
 			if (instance.state.settings.page !== "single") {
 				const firstSlide =
 					instance.container.querySelectorAll(".fmd-slide")[
-						instance.options.startSlide
+					instance.options.startSlide
 					];
 				firstSlide.classList.add("fmd-slide-active");
 				instance.hasNewActiveSlide(

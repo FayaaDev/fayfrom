@@ -344,9 +344,9 @@ function createTextField(
 		availableCountryOptions:
 			inputType === "tel"
 				? createCountryCallingCodeOptions(
-						validParams.country,
-						validParams.availablecountries,
-					)
+					validParams.country,
+					validParams.availablecountries,
+				)
 				: "",
 	});
 }
@@ -779,6 +779,13 @@ function createChoiceField(
 
 	// Use Nunjucks to create the form field
 	nunjucks.configure({ autoescape: false });
+
+	let keyHints = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+	if (id === "neurology-history-form") {
+		keyHints[0] = "Y";
+		keyHints[1] = "N";
+	}
+
 	return nunjucks.renderString(choiceFieldTemplate, {
 		startTag: `${startTag.slice(0, 9)} ${validationAttrs} ${startTag.slice(9)}`,
 		name: name,
@@ -787,7 +794,7 @@ function createChoiceField(
 		required: required,
 		validParams: validParams,
 		translations: translations,
-		keyHints: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+		keyHints: keyHints,
 	});
 }
 
