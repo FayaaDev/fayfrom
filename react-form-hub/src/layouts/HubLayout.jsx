@@ -35,7 +35,9 @@ const HubLayout = () => {
 		<div className="hub-layout">
 			{/* Logo */}
 			<div className="logo">
-				<img src="/PHAlogo.png" alt="Logo" />
+				<Link to="/">
+					<img src="/PHAlogo.png" alt="Logo" />
+				</Link>
 			</div>
 
 			{/* Language Toggle */}

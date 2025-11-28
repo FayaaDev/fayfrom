@@ -18,6 +18,7 @@ const HomePage = () => {
 		demoForm: { en: "Demo Form", ar: "النموذج التجريبي" },
 		feedbackForm: { en: "Feedback Form", ar: "نموذج الملاحظات" },
 		surveyForm: { en: "Survey Form", ar: "نموذج الاستبيان" },
+		burnoutSurvey: { en: "Burnout Survey", ar: "استبيان الاحتراق النفسي" },
 		enterName: {
 			en: "Enter Form Name (e.g., Contact)",
 			ar: "أدخل اسم النموذج (مثلاً: تواصل)",
@@ -167,6 +168,9 @@ export default ${formName}FormPage;
 						</Link>
 						<Link to="/survey-form" className="form-link-card">
 							{txt("surveyForm")}
+						</Link>
+						<Link to="/burnout-survey" className="form-link-card">
+							{txt("burnoutSurvey")}
 						</Link>
 						<Link to="/tester-form" className="form-link-card">
 							نموذج تسليم الأصول
