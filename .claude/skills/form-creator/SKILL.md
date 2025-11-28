@@ -270,6 +270,15 @@ All field types support these common options:
 }
 ```
 
+## Keyboard Navigation & Shortcuts
+
+The form runner includes built-in keyboard shortcuts for better accessibility and speed:
+
+- **Enter Key**: Advances to the next slide or submits the form (unless focused on a textarea or button).
+- **Choice Hotkeys (A-Z)**: For single-choice questions (radio buttons), pressing keys 'A', 'B', 'C', etc., will automatically select the corresponding option.
+  - Hints (A, B, C...) are automatically displayed next to options.
+
+
 ## Slide Control
 
 Use `composer.slide(options)` to create multi-step forms:

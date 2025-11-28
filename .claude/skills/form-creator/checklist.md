@@ -75,6 +75,7 @@ Use this checklist when adding a new form to the React Form Hub.
 - [ ] Progress indicators display correctly
 - [ ] Start button works
 - [ ] Navigation between slides works (Next/Previous)
+- [ ] Keyboard navigation works (Enter to advance, A-Z for choices)
 - [ ] Conditional fields show/hide correctly
 - [ ] Conditional slides skip correctly (if using jumpCondition)
 - [ ] Submit button appears on final slide
