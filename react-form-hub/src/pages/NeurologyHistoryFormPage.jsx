@@ -20,14 +20,21 @@ const NeurologyHistoryFormPage = () => {
         setOptions(newOptions);
     }, [currentLang]);
 
-    // Custom hotkey for "Maybe" choice (C)
+    // Custom hotkeys for choices (Y, N, C)
     useEffect(() => {
         const handleKeyDown = (e) => {
             // Only trigger if not typing in an input field
             if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
 
-            if (e.key.toLowerCase() === "c") {
-                const maybeText = currentLang === "ar" ? "ربما" : "Maybe";
+            const key = e.key.toLowerCase();
+            const keyMap = {
+                c: { en: "Maybe", ar: "ربما" },
+                y: { en: "Yes", ar: "نعم" },
+                n: { en: "No", ar: "لا" },
+            };
+
+            if (keyMap[key]) {
+                const targetText = keyMap[key][currentLang]; // Directly use the map for translation
                 const container = document.getElementById("neurology-history-form-container");
                 if (!container) return;
 
@@ -38,7 +45,7 @@ const NeurologyHistoryFormPage = () => {
                 const targetLabel = labels.find((label) => {
                     const text = label.innerText || label.textContent;
                     // Check visibility by ensuring it has an offsetParent
-                    return label.offsetParent !== null && text.toLowerCase().includes(maybeText.toLowerCase());
+                    return label.offsetParent !== null && text.toLowerCase().includes(targetText.toLowerCase());
                 });
 
                 if (targetLabel) {
@@ -48,13 +55,13 @@ const NeurologyHistoryFormPage = () => {
                     const input = parent ? parent.querySelector("input") : null;
 
                     if (input) {
-                        console.log("Clicking input for Maybe");
+                        console.log(`Clicking input for ${key.toUpperCase()}`);
                         input.click();
                         // Blur to remove focus ring which might be confusing the user
                         input.blur();
                     } else {
                         // Fallback to clicking label if input not found
-                        console.log("Input not found, clicking label");
+                        console.log(`Input not found for ${key.toUpperCase()}, clicking label`);
                         targetLabel.click();
                     }
 
@@ -64,7 +71,6 @@ const NeurologyHistoryFormPage = () => {
             }
         };
 
-        // Use capture phase to ensure we get the event before the library potentially swallows it
         window.addEventListener("keydown", handleKeyDown, true);
         return () => window.removeEventListener("keydown", handleKeyDown, true);
     }, [currentLang]);
