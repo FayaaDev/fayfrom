@@ -39,9 +39,8 @@ const NeurologyHistoryFormPage = () => {
 
             // Get form data from the instance
             const formData = formInstance.state.formData;
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-            const story = await generatePatientStory(formData, apiKey);
+            const story = await generatePatientStory(formData);
 
             resultDiv.innerText = story;
             resultDiv.style.display = "block";
