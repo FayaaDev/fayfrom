@@ -20,6 +20,55 @@ const NeurologyHistoryFormPage = () => {
         setOptions(newOptions);
     }, [currentLang]);
 
+    // Custom hotkey for "Maybe" choice (C)
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            // Only trigger if not typing in an input field
+            if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+
+            if (e.key.toLowerCase() === "c") {
+                const maybeText = currentLang === "ar" ? "ربما" : "Maybe";
+                const container = document.getElementById("neurology-history-form-container");
+                if (!container) return;
+
+                // Find all labels that might contain the text
+                const labels = Array.from(container.querySelectorAll(".fmd-form-check-label"));
+
+                // Find the one that matches our text and is visible
+                const targetLabel = labels.find((label) => {
+                    const text = label.innerText || label.textContent;
+                    // Check visibility by ensuring it has an offsetParent
+                    return label.offsetParent !== null && text.toLowerCase().includes(maybeText.toLowerCase());
+                });
+
+                if (targetLabel) {
+                    // Try to find the input associated with this label
+                    // It's usually a sibling in the .fmd-form-check container
+                    const parent = targetLabel.closest(".fmd-form-check");
+                    const input = parent ? parent.querySelector("input") : null;
+
+                    if (input) {
+                        console.log("Clicking input for Maybe");
+                        input.click();
+                        // Blur to remove focus ring which might be confusing the user
+                        input.blur();
+                    } else {
+                        // Fallback to clicking label if input not found
+                        console.log("Input not found, clicking label");
+                        targetLabel.click();
+                    }
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }
+        };
+
+        // Use capture phase to ensure we get the event before the library potentially swallows it
+        window.addEventListener("keydown", handleKeyDown, true);
+        return () => window.removeEventListener("keydown", handleKeyDown, true);
+    }, [currentLang]);
+
     const handleGenerateStory = async () => {
         if (!formInstance) return;
 

@@ -66,7 +66,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 4b. Description
@@ -88,7 +90,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.textInput("aura_description", {
@@ -112,7 +116,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 7. Staring
@@ -125,7 +131,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 8. Activity
@@ -156,7 +164,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Open", ar: "مفتوحة" }),
             translate(localization, { en: "Closed", ar: "مغلقة" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["o", "l", "c"],
     });
 
     // 11. Frothing
@@ -169,7 +179,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 12. Abnormal sounds
@@ -182,7 +194,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 13. Shaking
@@ -195,7 +209,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.textInput("shaking_part", {
@@ -219,7 +235,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 15. Incontinence
@@ -232,7 +250,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 16. Tongue bite
@@ -245,7 +265,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.textInput("tongue_bite_location", {
@@ -269,7 +291,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.textInput("trauma_location", {
@@ -293,7 +317,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 19. Driving
@@ -306,7 +332,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 20. Swimming/Jacuzzi
@@ -319,7 +347,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 21. Ladder
@@ -332,7 +362,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 22. Family History Epilepsy
@@ -345,7 +377,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 23. Family History Cardiac
@@ -358,7 +392,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 23b. Other Family History
@@ -380,7 +416,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 25. Childbirth complications
@@ -393,7 +431,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 26. Head trauma
@@ -406,7 +446,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.textInput("head_trauma_details", {
@@ -430,7 +472,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 28. Medications
@@ -486,7 +530,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.slide({ pageProgress: "33/37" });
@@ -498,7 +544,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.slide({ pageProgress: "34/37" });
@@ -510,7 +558,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.slide({ pageProgress: "35/37" });
@@ -522,7 +572,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.slide({ pageProgress: "35/37" });
@@ -534,7 +586,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.slide({ pageProgress: "36/37" });
@@ -546,7 +600,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     composer.slide({ pageProgress: "37/37" });
@@ -558,7 +614,9 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
         choices: [
             translate(localization, { en: "Yes", ar: "نعم" }),
             translate(localization, { en: "No", ar: "لا" }),
+            translate(localization, { en: "Maybe", ar: "ربما" }),
         ],
+        downkeys: ["y", "n", "c"],
     });
 
     // 32. Generate Story
