@@ -67,7 +67,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("witnessed_details", {
@@ -99,7 +99,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("aura_details", {
@@ -122,7 +122,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("abnormal_movements_details", {
@@ -145,7 +145,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("staring_details", {
@@ -186,7 +186,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "Closed", ar: "مغلقة" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["o", "l", "c"],
+		downkeys: ["O", "L", "M"],
 	});
 
 	composer.textInput("eyes_details", {
@@ -209,7 +209,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("frothing_details", {
@@ -232,7 +232,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("abnormal_sounds_details", {
@@ -255,7 +255,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("shaking_details", {
@@ -278,7 +278,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("confusion_details", {
@@ -301,7 +301,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("incontinence_details", {
@@ -324,7 +324,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("tongue_bite_details", {
@@ -347,7 +347,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("trauma_details", {
@@ -370,7 +370,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("triggers_details", {
@@ -393,7 +393,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("driving_details", {
@@ -416,7 +416,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("swimming_details", {
@@ -439,7 +439,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("ladder_details", {
@@ -462,7 +462,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("fh_epilepsy_details", {
@@ -485,7 +485,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("fh_cardiac_details", {
@@ -517,7 +517,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("full_term_details", {
@@ -540,7 +540,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("childbirth_complications_details", {
@@ -563,7 +563,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("head_trauma_details", {
@@ -586,7 +586,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("stroke_history_details", {
@@ -652,7 +652,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("ros_psych_details", {
@@ -674,7 +674,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("ros_cns_details", {
@@ -696,7 +696,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("ros_resp_details", {
@@ -718,7 +718,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("ros_cvs_details", {
@@ -740,7 +740,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("ros_gi_details", {
@@ -762,7 +762,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("ros_gu_details", {
@@ -784,7 +784,7 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 			translate(localization, { en: "No", ar: "لا" }),
 			translate(localization, { en: "Maybe", ar: "ربما" }),
 		],
-		downkeys: ["y", "n", "c"],
+		downkeys: ["Y", "N", "M"],
 	});
 
 	composer.textInput("ros_skin_details", {

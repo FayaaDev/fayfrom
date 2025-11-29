@@ -20,7 +20,7 @@ const NeurologyHistoryFormPage = () => {
         setOptions(newOptions);
     }, [currentLang]);
 
-    // Custom hotkeys for choices (Y, N, C)
+    // Custom hotkeys for choices (Y, N, M)
     useEffect(() => {
         const handleKeyDown = (e) => {
             // Only trigger if not typing in an input field
@@ -28,7 +28,7 @@ const NeurologyHistoryFormPage = () => {
 
             const key = e.key.toLowerCase();
             const keyMap = {
-                c: { en: "Maybe", ar: "ربما" },
+                m: { en: "Maybe", ar: "ربما" },
                 y: { en: "Yes", ar: "نعم" },
                 n: { en: "No", ar: "لا" },
             };
