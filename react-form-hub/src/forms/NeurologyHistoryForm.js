@@ -72,7 +72,6 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
     // 4b. Description
     composer.slide({ pageProgress: "4/37" });
     composer.textInput("event_description", {
-        multiline: false,
         question: translate(localization, {
             en: "What happened exactly?",
             ar: "ماذا حدث بالضبط؟",
@@ -455,7 +454,6 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
     // 30. Past History
     composer.slide({ pageProgress: "30/37" });
     composer.textInput("past_history", {
-        multiline: false,
         question: translate(localization, {
             en: "Past Medical/Psychiatric/Surgical History",
             ar: "التاريخ الطبي/النفسي/الجراحي السابق",
@@ -465,7 +463,6 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
     // 31. Social Status
     composer.slide({ pageProgress: "31/37" });
     composer.textInput("social_history", {
-        multiline: false,
         question: translate(localization, {
             en: "Social status? Smoker? Illicit drug/Alcohol use?",
             ar: "الحالة الاجتماعية؟ مدخن؟ تعاطي المخدرات/الكحول؟",

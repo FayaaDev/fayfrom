@@ -52,7 +52,7 @@ Generate a professional clinical history from patient form data.
 - Never use any findings not mentioned in the form data
 - Don't miss any complains, include all data in the story
 
-Format: "This is a [age]-year-old patient who presented with [complaints]. [Relevant history]. [Additional findings]."`;
+Format: "This is a patient who presented with [complaints]. [Relevant history]. [Additional findings]."`;
 
         const userPrompt = `Create a full clinical history from this patient data:
 
