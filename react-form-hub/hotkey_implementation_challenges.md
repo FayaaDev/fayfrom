@@ -20,6 +20,9 @@ Simply adding a `keydown` listener wasn't enough. The form library likely consum
 ### 4. Focus State Management
 Once we successfully triggered the click, the "Maybe" option would remain in a "focused" or highlighted state. This prevented the user from re-selecting it or switching options smoothly using the keyboard, as the browser maintained focus on the clicked element.
 
+### 5. Input Field Interference
+A critical issue arose where typing in text input fields (e.g., "Details") would inadvertently trigger the global hotkey listeners. For instance, typing "yes" in a text box would trigger the "Y" hotkey, changing the selection of a previous question. This happened because the keyboard events bubbled up from the input field to the `window` level where our custom listener was active.
+
 ## The Solution
 
 We implemented a robust, manual event handling strategy in [NeurologyHistoryFormPage.jsx](file:///Users/fayaa/fayfrom/react-form-hub/src/pages/NeurologyHistoryFormPage.jsx):
@@ -49,3 +52,19 @@ if (input) {
 ```
 
 This approach provides a seamless user experience that feels native to the form, bridging the gap between the library's defaults and the user's custom requirements.
+
+### 4. Event Propagation Control
+To prevent typing in text fields from triggering hotkeys, we implemented a strict event propagation control:
+-   We attached a `keydown`, `keypress`, and `keyup` listener to the form's container `div`.
+-   In this handler, we check `e.target.tagName`.
+-   If the target is an `INPUT` or `TEXTAREA`, we call `e.stopPropagation()`.
+-   This ensures that keystrokes intended for text entry are "consumed" locally and never reach the global hotkey listener.
+
+```javascript
+const handleInputKeyEvents = (e) => {
+    // Stop propagation for inputs to prevent library's global hotkeys from triggering
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+        e.stopPropagation();
+    }
+};
+```

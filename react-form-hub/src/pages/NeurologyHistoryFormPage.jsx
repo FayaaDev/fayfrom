@@ -140,12 +140,24 @@ const NeurologyHistoryFormPage = () => {
         }
     };
 
+    const handleInputKeyEvents = (e) => {
+        // Stop propagation for inputs to prevent library's global hotkeys from triggering
+        if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+            e.stopPropagation();
+        }
+    };
+
     if (!composer || !options) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div onClick={handleContainerClick}>
+        <div
+            onClick={handleContainerClick}
+            onKeyDown={handleInputKeyEvents}
+            onKeyPress={handleInputKeyEvents}
+            onKeyUp={handleInputKeyEvents}
+        >
             <FormRenderer
                 composer={composer}
                 options={options}
