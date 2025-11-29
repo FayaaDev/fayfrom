@@ -131,12 +131,39 @@ const NeurologyHistoryFormPage = () => {
         });
     };
 
+    const handleClearData = () => {
+        const modal = document.getElementById("clear-data-modal");
+        if (modal) {
+            modal.style.display = "flex";
+        }
+    };
+
+    const handleModalCancel = () => {
+        const modal = document.getElementById("clear-data-modal");
+        if (modal) {
+            modal.style.display = "none";
+        }
+    };
+
+    const handleModalConfirm = () => {
+        window.location.reload();
+    };
+
     // Event delegation for the button since it's injected as raw HTML
     const handleContainerClick = (e) => {
-        if (e.target && e.target.id === "btn-generate-story") {
+        const target = e.target;
+        if (!target) return;
+
+        if (target.id === "btn-generate-story" || target.closest("#btn-generate-story")) {
             handleGenerateStory();
-        } else if (e.target && e.target.id === "btn-copy-story") {
+        } else if (target.id === "btn-copy-story") {
             handleCopyStory();
+        } else if (target.id === "btn-clear-data") {
+            handleClearData();
+        } else if (target.id === "btn-modal-cancel") {
+            handleModalCancel();
+        } else if (target.id === "btn-modal-confirm") {
+            handleModalConfirm();
         }
     };
 

@@ -814,6 +814,26 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 		en: "Generating...",
 		ar: "جاري التوليد...",
 	});
+	const clearDataLabel = translate(localization, {
+		en: "Clear Data",
+		ar: "مسح البيانات",
+	});
+	const confirmTitle = translate(localization, {
+		en: "Clear All Data?",
+		ar: "مسح جميع البيانات؟",
+	});
+	const confirmMessage = translate(localization, {
+		en: "Are you sure you want to clear all data? This action cannot be undone.",
+		ar: "هل أنت متأكد أنك تريد مسح جميع البيانات؟ لا يمكن التراجع عن هذا الإجراء.",
+	});
+	const confirmYes = translate(localization, {
+		en: "Yes, Clear",
+		ar: "نعم، مسح",
+	});
+	const confirmNo = translate(localization, {
+		en: "Cancel",
+		ar: "إلغاء",
+	});
 
 	composer.free(`
 <div class="fmd-next-controls fmd-d-flex fmd-justify-content-center fmd-mb-4">
@@ -822,12 +842,27 @@ ${buttonLabel}
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="fmd-icon fmd-ms-2 fmd-hide-rtl" aria-hidden="true" focusable="false"><path d="M273 239c9.4 9.4 9.4 24.6 0 33.9L113 433c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l143-143L79 113c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L273 239z"/></svg>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="fmd-icon fmd-ms-2 fmd-hide-ltr" aria-hidden="true" focusable="false"><path d="M47 239c-9.4 9.4-9.4 24.6 0 33.9L207 433c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9L97.9 256 241 113c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L47 239z"/></svg>
 </button>
+<button type="button" id="btn-clear-data" class="fmd-btn" style="background-color: #dc3545; color: white; margin-inline-start: 10px;">
+${clearDataLabel}
+</button>
 </div>
 <div id="story-result" class="fmd-card fmd-p-4 fmd-mt-4" style="display: none; white-space: pre-wrap; text-align: start;"></div>
 <div class="fmd-text-center fmd-mt-2">
 <button type="button" id="btn-copy-story" class="fmd-btn fmd-btn-sm fmd-btn-accent" style="display: none;">
 Copy
 </button>
+</div>
+
+<!-- Modal -->
+<div id="clear-data-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="background: white; padding: 20px; border-radius: 8px; max-width: 400px; width: 90%; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h3 style="margin-top: 0; color: #dc3545;">${confirmTitle}</h3>
+        <p>${confirmMessage}</p>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <button type="button" id="btn-modal-cancel" class="fmd-btn" style="background: #f8f9fa; color: #212529; border: 1px solid #dee2e6;">${confirmNo}</button>
+            <button type="button" id="btn-modal-confirm" class="fmd-btn" style="background: #dc3545; color: white;">${confirmYes}</button>
+        </div>
+    </div>
 </div>
 `);
 
