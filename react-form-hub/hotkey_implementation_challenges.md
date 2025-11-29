@@ -23,6 +23,55 @@ Once we successfully triggered the click, the "Maybe" option would remain in a "
 ### 5. Input Field Interference
 A critical issue arose where typing in text input fields (e.g., "Details") would inadvertently trigger the global hotkey listeners. For instance, typing "yes" in a text box would trigger the "Y" hotkey, changing the selection of a previous question. This happened because the keyboard events bubbled up from the input field to the `window` level where our custom listener was active.
 
+### 6. Hardcoded logic in keydown listener
+
+## The Problem
+Despite updating the form configuration in `NeurologyHistoryForm.js` to specify `downkeys: ["Y", "N", "M"]`, the frontend continued to display **"C"** as the visual hint for the "Maybe" option.
+
+## Root Cause Analysis
+Upon investigating the compiled library file `public/formsmd.bundle.min.js`, we discovered that the library contained **hardcoded logic** specifically targeting the `neurology-history-form` ID.
+
+### Hardcoded Visual Hints
+The library had a specific check for the form ID:
+```javascript
+return "neurology-history-form" === o && (b[0] = "Y", b[1] = "N"), ...
+```
+This logic manually forced the first two options to "Y" and "N" but left the subsequent options to fall back to the default alphabet generation (A, B, C...), resulting in the third option being "C".
+
+### Hardcoded Event Handling
+Similarly, the internal keyboard event listener had hardcoded logic for this specific form ID:
+```javascript
+"neurology-history-form" === n.state.settings.id ? "Y" === t ? r = 0 : "N" === t && (r = 1) : ...
+```
+This meant the library was only listening for "Y" and "N" keys for this specific form, completely ignoring any custom configuration passed for other keys.
+
+## The Solution for Hardcoded Event Handling
+To resolve this without access to the library's source code, we applied binary patches to `public/formsmd.bundle.min.js` to inject the logic for the "M" key.
+
+1.  **Patched Visual Hints**:
+    Updated the logic to explicitly assign "M" to the third index:
+    ```javascript
+    // Before
+    (b[0]="Y",b[1]="N")
+    // After
+    (b[0]="Y",b[1]="N",b[2]="M")
+    ```
+
+2.  **Patched Event Handler**:
+    Updated the keydown listener to map the "M" key to index 2:
+    ```javascript
+    // Before
+    "Y"===t?r=0:"N"===t&&(r=1)
+    // After
+    "Y"===t?r=0:"N"===t?r=1:"M"===t&&(r=2)
+    ```
+
+## Recommendations
+This fix is **brittle** because it relies on modifying a minified bundle.
+1.  **Risk**: If `formsmd.bundle.min.js` is ever updated or re-downloaded, these patches will be overwritten.
+2.  **Long-term Fix**: The `formsmd` library should be updated to support custom key mappings via the configuration object (e.g., reading the `downkeys` array) instead of relying on hardcoded ID checks. This would allow any form to define its own hotkeys (like Y/N/M) without library code changes.
+
+
 ## The Solution
 
 We implemented a robust, manual event handling strategy in [NeurologyHistoryFormPage.jsx](file:///Users/fayaa/fayfrom/react-form-hub/src/pages/NeurologyHistoryFormPage.jsx):
