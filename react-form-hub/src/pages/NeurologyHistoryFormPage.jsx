@@ -61,9 +61,19 @@ const NeurologyHistoryFormPage = () => {
                 }
 
                 const btnText = (btn.innerText || btn.textContent).toLowerCase();
+                const isBackBtn = btnText.includes('back') || btnText.includes('السابق') || btn.classList.contains('fmd-btn-prev');
 
-                // Handle "Next" buttons
-                if (btnText.includes('next') || btnText.includes('التالي')) {
+                // Handle "Next" buttons (text or arrow)
+                // It is a next button if:
+                // 1. It has "next" text
+                // 2. OR it has "fmd-btn-next" class
+                // 3. OR it is NOT a back button AND (has no text but has SVG OR is in fmd-next-controls)
+                const isNextBtn = btnText.includes('next') ||
+                    btnText.includes('التالي') ||
+                    btn.classList.contains('fmd-btn-next') ||
+                    (!isBackBtn && (btn.querySelector('svg') || btn.closest('.fmd-next-controls')));
+
+                if (isNextBtn) {
                     if (btn.dataset.customized === "true") return;
 
                     const newBtn = btn.cloneNode(true);
