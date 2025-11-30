@@ -14,11 +14,87 @@ const NeurologyHistoryFormPage = () => {
 
     useEffect(() => {
         const newComposer = createNeurologyHistoryFormComposer(currentLang);
-        const newOptions = getFormOptions(currentLang);
+        const newOptions = {
+            ...getFormOptions(currentLang),
+            // Disable form submission since this is a template generator, not a submittable form
+            postUrl: null,
+            // Disable restart button on final slide
+            restartButton: "hide",
+            // Disable thank you message
+            thankYouScreenTitle: "",
+            thankYouScreenDescription: "",
+        };
 
         setComposer(newComposer);
         setOptions(newOptions);
     }, [currentLang]);
+
+    // Remove default navigation buttons on the last slide after form mounts
+    useEffect(() => {
+        if (!formInstance) return;
+
+        const container = document.getElementById("neurology-history-form-container");
+        if (!container) return;
+
+        // Function to clean up unwanted buttons and completion elements
+        const cleanupButtons = () => {
+            const slides = container.querySelectorAll(".fmd-slide");
+            const lastSlide = slides[slides.length - 1];
+
+            if (lastSlide) {
+                // Find and remove default navigation controls that don't contain our custom button
+                const allNextControls = lastSlide.querySelectorAll(".fmd-next-controls");
+                allNextControls.forEach(control => {
+                    // Keep only the control that contains our custom generate story button
+                    if (!control.querySelector("#btn-generate-story")) {
+                        control.remove();
+                    }
+                });
+
+                // Remove restart controls
+                const restartControls = lastSlide.querySelectorAll(".fmd-restart-controls");
+                restartControls.forEach(control => control.remove());
+
+                // Remove any submit buttons
+                const submitButtons = lastSlide.querySelectorAll('button[type="submit"]');
+                submitButtons.forEach(btn => btn.remove());
+
+                // Remove thank you screen elements
+                const thankYouScreens = container.querySelectorAll(".fmd-thank-you-screen");
+                thankYouScreens.forEach(screen => screen.remove());
+
+                // Remove any "Next" button text elements
+                const nextButtons = lastSlide.querySelectorAll('button');
+                nextButtons.forEach(btn => {
+                    const btnText = btn.innerText || btn.textContent;
+                    // Remove buttons that say "Next" or "التالي" (Arabic for Next)
+                    if (btnText.toLowerCase().includes('next') || btnText.includes('التالي')) {
+                        if (!btn.closest('#btn-generate-story')) {
+                            btn.remove();
+                        }
+                    }
+                });
+            }
+        };
+
+        // Initial cleanup
+        const timer = setTimeout(cleanupButtons, 100);
+
+        // Also observe for any dynamic changes (when navigating to the last slide)
+        const observer = new MutationObserver(() => {
+            cleanupButtons();
+        });
+
+        observer.observe(container, {
+            childList: true,
+            subtree: true,
+        });
+
+        return () => {
+            clearTimeout(timer);
+            observer.disconnect();
+        };
+    }, [formInstance]);
 
     // Custom hotkeys for choices (Y, N, M)
     useEffect(() => {

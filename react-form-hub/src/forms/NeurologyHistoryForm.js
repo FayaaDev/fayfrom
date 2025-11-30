@@ -10,7 +10,10 @@ export function createNeurologyHistoryFormComposer(localization = "en") {
 	const composer = new window.Composer({
 		id: "neurology-history-form",
 		...getSharedFormConfig(localization),
-		postUrl: GOOGLE_SCRIPT_URL,
+		postUrl: null, // No submission for this template generator
+		restartButton: "hide",
+		thankYouScreenTitle: "",
+		thankYouScreenDescription: "",
 	});
 
 	// Header
