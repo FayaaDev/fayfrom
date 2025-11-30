@@ -38,49 +38,76 @@ const NeurologyHistoryFormPage = () => {
 
         // Function to clean up unwanted buttons and completion elements
         const cleanupButtons = () => {
-            const slides = container.querySelectorAll(".fmd-slide");
-            const lastSlide = slides[slides.length - 1];
+            // Check if we are on the last slide by checking if our custom button is visible
+            const generateStoryBtn = container.querySelector("#btn-generate-story");
 
-            if (lastSlide) {
-                // Find and remove default navigation controls that don't contain our custom button
-                const allNextControls = lastSlide.querySelectorAll(".fmd-next-controls");
-                allNextControls.forEach(control => {
-                    // Keep only the control that contains our custom generate story button
-                    if (!control.querySelector("#btn-generate-story")) {
-                        control.remove();
-                    }
-                });
+            // If the custom button doesn't exist or isn't visible, we likely aren't on the last slide
+            if (!generateStoryBtn || generateStoryBtn.offsetParent === null) return;
 
-                // Remove restart controls
-                const restartControls = lastSlide.querySelectorAll(".fmd-restart-controls");
-                restartControls.forEach(control => control.remove());
+            // Find the active slide (usually the one containing the visible generate button)
+            const lastSlide = generateStoryBtn.closest('.fmd-slide');
 
-                // Remove any submit buttons
-                const submitButtons = lastSlide.querySelectorAll('button[type="submit"]');
-                submitButtons.forEach(btn => btn.remove());
+            // Find ALL buttons in the container (navigation might be outside the slide)
+            const allButtons = container.querySelectorAll('button');
 
-                // Remove thank you screen elements
-                const thankYouScreens = container.querySelectorAll(".fmd-thank-you-screen");
-                thankYouScreens.forEach(screen => screen.remove());
+            allButtons.forEach(btn => {
+                // Skip our custom buttons and modal buttons
+                if (btn.id === 'btn-generate-story' ||
+                    btn.closest('#btn-generate-story') ||
+                    btn.id === 'btn-copy-story' ||
+                    btn.id === 'btn-clear-data' ||
+                    btn.closest('#clear-data-modal')) {
+                    return;
+                }
 
-                // Remove any "Next" button text elements
-                const nextButtons = lastSlide.querySelectorAll('button');
-                nextButtons.forEach(btn => {
-                    const btnText = btn.innerText || btn.textContent;
-                    // Remove buttons that say "Next" or "التالي" (Arabic for Next)
-                    if (btnText.toLowerCase().includes('next') || btnText.includes('التالي')) {
-                        if (!btn.closest('#btn-generate-story')) {
-                            btn.remove();
+                const btnText = (btn.innerText || btn.textContent).toLowerCase();
+
+                // Handle "Next" buttons
+                if (btnText.includes('next') || btnText.includes('التالي')) {
+                    if (btn.dataset.customized === "true") return;
+
+                    const newBtn = btn.cloneNode(true);
+                    newBtn.dataset.customized = "true";
+
+                    newBtn.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+
+                        const msgId = "form-completion-message";
+                        let msgDiv = document.getElementById(msgId);
+
+                        if (!msgDiv && lastSlide) {
+                            msgDiv = document.createElement("div");
+                            msgDiv.id = msgId;
+                            msgDiv.style.cssText = "margin-top: 15px; padding: 15px; background-color: #cff4fc; color: #055160; border: 1px solid #b6effb; border-radius: 4px; text-align: center; width: 100%; font-weight: bold;";
+                            lastSlide.appendChild(msgDiv);
                         }
-                    }
-                });
-            }
+
+                        if (msgDiv) {
+                            msgDiv.innerText = "The form has concluded, don't forget to clear out patient data";
+                            msgDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    };
+
+                    btn.parentNode.replaceChild(newBtn, btn);
+                }
+
+                // Remove Submit buttons if any appear
+                if (btn.getAttribute('type') === 'submit') {
+                    btn.remove();
+                }
+            });
+
+            // Remove thank you screens if they appear
+            const thankYouScreens = container.querySelectorAll(".fmd-thank-you-screen");
+            thankYouScreens.forEach(screen => screen.remove());
         };
 
         // Initial cleanup
         const timer = setTimeout(cleanupButtons, 100);
 
-        // Also observe for any dynamic changes (when navigating to the last slide)
+        // Also observe for any dynamic changes
         const observer = new MutationObserver(() => {
             cleanupButtons();
         });
@@ -88,6 +115,8 @@ const NeurologyHistoryFormPage = () => {
         observer.observe(container, {
             childList: true,
             subtree: true,
+            attributes: true,
+            attributeFilter: ['class', 'style']
         });
 
         return () => {
